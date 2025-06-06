@@ -1,19 +1,37 @@
 'use client';
 
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { Star } from 'lucide-react';
 import Photos from './components/Photos';
 import Description from './components/Description';
 import Location from './components/Location';
-import { ServiceProviders } from '@/constants/services';
+import { useCollection } from '@/hooks/useCollection';
+import { PB_URL } from '@/constants/url';
 
 const ViewDetailsPage = () => {
-  const params = useParams();
-  const cfsId = params?.id;
+  const searchParams = useSearchParams();
+  const cfsId = searchParams.get('id');
+
+  // Fetch providers data using the same hook as home page
+  const { data: providers, loading } = useCollection('service_provider', {
+    expand: 'service'
+  });
 
   // Find the specific CFS provider based on the ID
-  const cfsProvider = ServiceProviders.find(provider => provider.id === cfsId);
+  const cfsProvider = providers?.find(provider => provider.id === cfsId);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="text-gray-600 mt-4">Loading CFS details...</p>
+        </div>
+      </div>
+    );
+  }
 
   // If CFS provider not found, show error message
   if (!cfsProvider) {
@@ -27,10 +45,12 @@ const ViewDetailsPage = () => {
     );
   }
 
-  // Extract image URLs from the provider data
-  const imageUrls = cfsProvider.images?.map(img => img.src) || [];
+  // Extract image URLs from the provider data - adapt to your PocketBase structure
+  const imageUrls = cfsProvider.files?.map(filename => 
+    `${PB_URL}/api/files/service_provider/${cfsProvider.id}/${filename}`
+  ) || [];
 
-  // Mock facilities data - you can extend this based on your needs
+  // Mock facilities data - you can extend this based on your needs or fetch from provider data
   const facilities = [
     'Container Storage',
     'Customs Clearance',
@@ -59,14 +79,14 @@ const ViewDetailsPage = () => {
                     <div className="flex items-center mr-2">
                       <Star className="h-5 w-5 text-yellow-400 fill-current" />
                       <span className="ml-1 text-lg font-semibold text-gray-900">
-                        {cfsProvider.rating}
+                        {cfsProvider.rating?.toFixed(1) || '0.0'}
                       </span>
                     </div>
                     <span className="text-gray-600 text-sm">rating</span>
                   </div>
                   
                   <div className="flex flex-wrap gap-2">
-                    {cfsProvider.tags?.map((tag, index) => (
+                    {cfsProvider.tags?.tags?.map((tag, index) => (
                       <span
                         key={index}
                         className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full"
@@ -107,7 +127,7 @@ const ViewDetailsPage = () => {
                 location={cfsProvider.location}
                 address={cfsProvider.location}
                 coordinates={{
-                  lat: 19.0760,
+                  lat: 19.0760, // You might want to store actual coordinates in your database
                   lng: 72.8777
                 }}
                 isEditable={false}

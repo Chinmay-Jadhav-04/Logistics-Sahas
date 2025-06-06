@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'; // Add this import
 import HeaderLayout from "./components/HeaderLayout";
 import MobileHeaderLayout from "./components/MobileHeaderLayout";
 import { ServiceProviders, servicesList } from "@/constants/services";
@@ -153,11 +154,19 @@ export default function ClientHomePage() {
 
 const ServiceCard = ({ title, location, rating, tags, description, images, id }) => {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
+	const router = useRouter(); // Add router hook
+
 	const nextImage = () => {
 		setCurrentImageIndex((prev) => (prev + 1) % images.length);
 	};
+	
 	const prevImage = () => {
 		setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+	};
+
+	// Add navigation handler
+	const handleViewDetails = () => {
+		router.push(`/customer/home/View-details?id=${id}`);
 	};
 
 	return (
@@ -177,7 +186,6 @@ const ServiceCard = ({ title, location, rating, tags, description, images, id })
 				}
 
 				{/* Image navigation buttons */}
-
 				<div className="absolute inset-y-0 left-0 w-full h-full bg-black/30" />
 				<div className="absolute inset-y-0 left-1 flex items-center">
 					<button
@@ -228,10 +236,13 @@ const ServiceCard = ({ title, location, rating, tags, description, images, id })
 				<div className="flex flex-wrap gap-4 mt-4">
 					<RequestPopup provider={id} />
 					<UrgentRequestPopup provider={id} />
-					<Button title={'View Details'} className="rounded-md" />
+					<Button 
+						title={'View Details'} 
+						className="rounded-md" 
+						onClick={handleViewDetails} // Add click handler
+					/>
 				</div>
 			</div>
 		</div>
 	);
-
 }

@@ -22,8 +22,8 @@ const Photos = ({ images = [], title = "CFS Facility" }) => {
   const thumbnailImages = images.slice(1, 5);
 
   return (
-    <div className="border rounded-xl p-4 shadow-md shadow-foreground/40 relative overflow-hidden">
-      <div className="bg-[#D4E6D2] rounded-lg p-3 mb-3 shadow-sm relative">
+    <div className=" rounded-xl p-4  relative overflow-hidden">
+      <div className="bg-background rounded-lg p-3 mb-3 shadow-sm relative">
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 h-auto sm:h-160">
           {/* Main Image */}
           <div className="sm:col-span-2 relative h-48 sm:h-auto">

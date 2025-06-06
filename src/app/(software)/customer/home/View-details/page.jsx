@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
-import { Star } from 'lucide-react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Star, ArrowLeft } from 'lucide-react';
 import Photos from './components/Photos';
 import Description from './components/Description';
 import Location from './components/Location';
@@ -10,47 +10,36 @@ import { useCollection } from '@/hooks/useCollection';
 import { PB_URL } from '@/constants/url';
 
 const ViewDetailsPage = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const cfsId = searchParams.get('id');
 
-  // Fetch providers data using the same hook as home page
   const { data: providers, loading } = useCollection('service_provider', {
     expand: 'service'
   });
 
-  // Find the specific CFS provider based on the ID
   const cfsProvider = providers?.find(provider => provider.id === cfsId);
 
-  // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
-          <p className="text-gray-600 mt-4">Loading CFS details...</p>
-        </div>
+      <div className="min-h-screen bg-[#E8F3EB] flex items-center justify-center">
+        <p className="text-gray-600">Loading CFS details...</p>
       </div>
     );
   }
 
-  // If CFS provider not found, show error message
   if (!cfsProvider) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">CFS Not Found</h1>
-          <p className="text-gray-600">The requested CFS facility could not be found.</p>
-        </div>
+      <div className="min-h-screen bg-[#E8F3EB] flex items-center justify-center">
+        <p className="text-gray-600">CFS not found.</p>
       </div>
     );
   }
 
-  // Extract image URLs from the provider data - adapt to your PocketBase structure
-  const imageUrls = cfsProvider.files?.map(filename => 
+  const imageUrls = cfsProvider.files?.map(filename =>
     `${PB_URL}/api/files/service_provider/${cfsProvider.id}/${filename}`
   ) || [];
 
-  // Mock facilities data - you can extend this based on your needs or fetch from provider data
   const facilities = [
     'Container Storage',
     'Customs Clearance',
@@ -61,101 +50,65 @@ const ViewDetailsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Header Section */}
-        <div className="mb-6">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-              <div className="flex-1">
-                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">
-                  {cfsProvider.title}
-                </h1>
-                <p className="text-gray-600 mb-3">{cfsProvider.location}</p>
-                
-                {/* Rating and Tags */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                  <div className="flex items-center">
-                    <div className="flex items-center mr-2">
-                      <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                      <span className="ml-1 text-lg font-semibold text-gray-900">
-                        {cfsProvider.rating?.toFixed(1) || '0.0'}
-                      </span>
-                    </div>
-                    <span className="text-gray-600 text-sm">rating</span>
-                  </div>
-                  
-                  <div className="flex flex-wrap gap-2">
-                    {cfsProvider.tags?.tags?.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
+  <div>
+    <div className="min-h-screen bg-accent py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Back Button */}
+        <button
+          onClick={() => router.push('/customer/home')}
+          className="flex items-center border border-bg-foreground rounded-lg p-2 text-green-800 font-semibold hover:underline"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          <span>Back to Home</span>
+        </button>
+
+        {/* Header */}
+        <div className="bg-white rounded-lg border shadow-sm p-6">
+          <h1 className="text-2xl font-bold text-gray-900">{cfsProvider.title}</h1>
+          <p className="text-sm text-gray-600 mb-3">{cfsProvider.location}</p>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-center">
+              <Star className="h-5 w-5 text-yellow-400 fill-current mr-1" />
+              <span className="font-medium">{cfsProvider.rating?.toFixed(1) || '0.0'}</span>
+              <span className="text-sm text-gray-500 ml-1">rating</span>
             </div>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Photos and Description */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Photos Section */}
-            <Photos 
-              images={imageUrls} 
-              title={cfsProvider.title}
-            />
-
-            {/* Description Section */}
-            <Description
-              description={cfsProvider.description}
-              facilities={facilities}
-              isEditable={false}
-              userRole="user"
-            />
-          </div>
-
-          {/* Right Column - Location */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-6">
-              <Location
-                location={cfsProvider.location}
-                address={cfsProvider.location}
-                coordinates={{
-                  lat: 19.0760, // You might want to store actual coordinates in your database
-                  lng: 72.8777
-                }}
-                isEditable={false}
-                userRole="user"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Services Section (Optional) */}
-        <div className="mt-8">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Available Services</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {facilities.map((service, index) => (
-                <div
-                  key={index}
-                  className="flex items-center p-3 bg-gray-50 rounded-lg border"
-                >
-                  <div className="w-2 h-2 bg-green-600 rounded-full mr-3"></div>
-                  <span className="text-sm font-medium text-gray-800">{service}</span>
-                </div>
+            <div className="flex flex-wrap gap-2">
+              {cfsProvider.tags?.tags?.map((tag, idx) => (
+                <span key={idx} className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">
+                  {tag}
+                </span>
               ))}
             </div>
           </div>
         </div>
+
+        {/* Photos */}
+        <div className="bg-white rounded-lg border shadow-sm p-6">
+          <Photos images={imageUrls} title={cfsProvider.title} />
+        </div>
+
+        {/* Facilities Grid + Facility Tags */}
+        <Description
+          description={cfsProvider.description}
+          facilities={facilities}
+          isEditable={false}
+          userRole="user"
+        />
+
+        {/* Location */}
+        <div className="bg-white rounded-lg shadow-sm border p-6">
+          <Location
+            location={cfsProvider.location}
+            address={cfsProvider.location}
+            coordinates={{ lat: 19.0760, lng: 72.8777 }}
+            isEditable={false}
+            userRole="user"
+          />
+        </div>
       </div>
     </div>
+  </div>
+    
   );
 };
 

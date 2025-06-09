@@ -1,5 +1,7 @@
+'use client';
+
 import { DataTable } from '@/components/ui/Table';
-import { Eye, Trash, Edit, User, Settings } from 'lucide-react';
+import { Eye, Trash, Edit, Settings } from 'lucide-react';
 import { useCollection } from '@/hooks/useCollection';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
@@ -10,20 +12,21 @@ export default function UserTable({ activeTab, searchQuery }) {
   const { data, deleteItem, updateItem, mutation } = useCollection('users');
   const { user } = useAuth();
   const router = useRouter();
+  
+  const filteredData = (data?.length ? data : sampleData).filter((item) => {
+    const matchesTab =
+      activeTab === 'CFS'
+        ? item.role === 'CFS Admin' || item.role === 'CFS Viewer'
+        : item.role === 'Customer';
 
- 
-  const filteredData = data?.filter(item => {
-    const matchesTab = activeTab === 'CFS' ? 
-      (item.role === 'CFS Admin' || item.role === 'CFS Viewer') : 
-      (item.role === 'Customer');
-    
-    const matchesSearch = searchQuery === '' || 
+    const matchesSearch =
+      searchQuery === '' ||
       item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.emailId?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.phoneNo?.includes(searchQuery);
-    
+
     return matchesTab && matchesSearch;
-  }) || [];
+  });
 
   const handleViewDetails = (userId) => {
     router.push(`/usermanagement/view/${userId}`);
@@ -83,7 +86,11 @@ export default function UserTable({ activeTab, searchQuery }) {
           }
         };
         return (
-          <div className={`${getStatusColor(status)} rounded-xl px-3 py-1 text-center text-sm font-medium`}>
+          <div
+            className={`${getStatusColor(
+              status
+            )} rounded-xl px-3 py-1 text-center text-sm font-medium`}
+          >
             {status}
           </div>
         );
@@ -144,7 +151,7 @@ export default function UserTable({ activeTab, searchQuery }) {
           />
         </div>
       ),
-    }
+    },
   ];
 
   return (
@@ -164,6 +171,7 @@ export default function UserTable({ activeTab, searchQuery }) {
           searchPlaceholder="Search user by name/email/phone..."
         />
       </div>
+      
     </div>
   );
 }

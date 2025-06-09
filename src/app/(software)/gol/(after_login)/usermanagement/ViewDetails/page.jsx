@@ -55,11 +55,12 @@ const ViewDetails = () => {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">User Not Found</h2>
-        <p className="text-gray-600 mb-8">The user you're looking for doesn't exist.</p>
-        <Button onClick={() => router.back()} className="bg-green-600 hover:bg-green-700">
-          Go Back
-        </Button>
+        <h2 className="text-2xl font-bold text-foreground mb-4">User Not Found</h2>
+        <p className="text-foreground mb-8">The user you're looking for doesn't exist.</p>
+       <button onClick={() => router.back()} className="flex border rounded-lg px-10 py-4 text-sm font-medium bg-green-600 hover:bg-green-700 text-white">
+        Go Back
+       </button>
+
       </div>
     );
   }
@@ -93,12 +94,12 @@ const ViewDetails = () => {
 
             <div className="bg-white shadow rounded-lg">
               <div className="px-6 py-6">
-                <button
+                <Button
                   onClick={handleDeleteAccount}
                   className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-medium"
                 >
                   Delete Account
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -112,12 +113,12 @@ const ViewDetails = () => {
 
         {/* Save Button */}
         <div className="mt-6 flex justify-end">
-          <button
+          <Button
             onClick={handleSaveChanges}
             className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-md font-medium"
           >
             Save Changes
-          </button>
+          </Button>
         </div>
       </div>
     </div>

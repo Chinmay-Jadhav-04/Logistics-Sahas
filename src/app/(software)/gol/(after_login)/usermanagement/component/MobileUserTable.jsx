@@ -34,15 +34,15 @@ export default function MobileUserTable({ activeTab, searchQuery, onSearchChange
   }, [data, activeTab, searchQuery]);
 
   const handleViewDetails = (userId) => {
-    router.push(`/usermanagement/view/${userId}`);
+    router.push(`/gol/usermanagement/ViewDetails`);
   };
 
   const handleEditUser = (userId) => {
-    router.push(`/usermanagement/edit/${userId}`);
+    router.push(`/gol/usermanagement/edit/${userId}`);
   };
 
   const handleUserSettings = (userId) => {
-    router.push(`/usermanagement/settings/${userId}`);
+    router.push(`/gol/usermanagement/settings/${userId}`);
   };
 
   const getStatusBadgeClass = (status) => {

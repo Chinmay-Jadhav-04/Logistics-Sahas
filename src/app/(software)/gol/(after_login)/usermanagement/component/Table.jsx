@@ -37,14 +37,7 @@ const Table = ({ activeTab }) => {
           </div>
           
           <div className="flex flex-row justify-end items-center gap-3">
-       
-          <div className="flex items-center gap-2">
-            <User size={20} className="text-gray-600" />
-            <span className="text-sm text-gray-600">User</span>
-          </div>
-          
-
-          <AddNewUser />
+         <AddNewUser />
         </div>
         </div>
 

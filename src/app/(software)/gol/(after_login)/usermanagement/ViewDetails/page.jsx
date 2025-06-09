@@ -1,68 +1,65 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { useCollection } from '@/hooks/useCollection';
 import { toast } from 'sonner';
 import Button from '@/components/ui/Button';
-import sampleData from '@/constants/UserSampleData'; // Import sample data
+import sampleData from '@/constants/UserSampleData';
 
-// Import the new components
-import ProfileInformation from './ProfileInformation';
-import RolesAndPermissions from './RolesAndPermissions';
-import AccountStatus from './AccountStatus';
-import AccountDetails from './AccountDetails';
+import AccountDetails from './components/AccountDetails';
+import ProfileInformation from './components/ProfileInformation';
+import RolesAndPermissions from './components/RolesAndPermissions';
+import AccountStatus from './components/AccountStatus';
 
 const ViewDetails = () => {
   const router = useRouter();
-  const params = useParams();
+  const { id } = useParams();
   const { data } = useCollection('users');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (params.id) {
-      // Combine sample data with collection data (same as in MobileUserTable)
-      const combinedData = [...sampleData, ...(data || [])];
-      const foundUser = combinedData.find(u => u.id === params.id);
-      
-      if (foundUser) {
-        setUser(foundUser);
-      }
+    if (!id) {
       setLoading(false);
+      return;
     }
-  }, [data, params.id]);
+
+    const combinedData = [...sampleData, ...(data || [])];
+    const foundUser = combinedData.find((u) => u.id === id);
+    if (foundUser) setUser(foundUser);
+
+    setLoading(false);
+  }, [data, id]);
 
   const handleDeleteAccount = () => {
     if (confirm('Are you sure you want to delete this account?')) {
-      // Handle delete account logic
       toast.success('Account deleted successfully');
       router.back();
     }
   };
 
   const handleSaveChanges = () => {
-    // Handle save changes logic
     toast.success('Changes saved successfully');
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-500"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-500" />
       </div>
     );
   }
 
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">User Not Found</h2>
-          <p className="text-gray-600 mb-8">The user you're looking for doesn't exist.</p>
-          <Button onClick={() => router.back()} className="bg-green-600 hover:bg-green-700">
-            Go Back
-          </Button>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-screen text-center">
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">User Not Found</h2>
+        <p className="text-gray-600 mb-8">The user you're looking for doesn't exist.</p>
+        <Button onClick={() => router.back()} className="bg-green-600 hover:bg-green-700">
+          Go Back
+        </Button>
       </div>
     );
   }
@@ -70,7 +67,6 @@ const ViewDetails = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Header */}
         <div className="bg-white shadow rounded-lg mb-6">
           <div className="px-6 py-4 border-b border-gray-200">
@@ -90,18 +86,12 @@ const ViewDetails = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            
-            {/* Profile Information Component */}
+          <div className="lg:col-span-2 space-y-6">
             <ProfileInformation user={user} />
-
-            {/* Roles and Permissions Component */}
             <RolesAndPermissions user={user} />
 
-            {/* Delete Account Section */}
-            <div className="bg-white shadow rounded-lg mt-6">
+            <div className="bg-white shadow rounded-lg">
               <div className="px-6 py-6">
                 <button
                   onClick={handleDeleteAccount}
@@ -111,22 +101,16 @@ const ViewDetails = () => {
                 </button>
               </div>
             </div>
-
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6">
-            
-            {/* Account Status Component */}
             <AccountStatus user={user} />
-
-            {/* Account Details Component */}
             <AccountDetails user={user} />
-
           </div>
         </div>
 
-        {/* Save Changes Button */}
+        {/* Save Button */}
         <div className="mt-6 flex justify-end">
           <button
             onClick={handleSaveChanges}
@@ -135,7 +119,6 @@ const ViewDetails = () => {
             Save Changes
           </button>
         </div>
-
       </div>
     </div>
   );

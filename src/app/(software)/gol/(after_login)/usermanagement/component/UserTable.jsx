@@ -32,7 +32,7 @@ export default function UserTable({ activeTab, searchQuery }) {
   });
 
   const handleViewDetails = (userId) => {
-    router.push(`/usermanagement/view/${userId}`);
+    router.push(`/gol/usermanagement/ViewDetails`);
   };
 
   const handleStatusUpdate = async (id, status) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditForm = () => {
+const ViewDetails = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const EditForm = () => {
   )
 }
 
-export default EditForm
+export default ViewDetails

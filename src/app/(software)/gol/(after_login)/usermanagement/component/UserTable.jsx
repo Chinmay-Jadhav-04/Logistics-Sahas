@@ -7,12 +7,41 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
-
 export default function UserTable({ activeTab, searchQuery }) {
   const { data, deleteItem, updateItem, mutation } = useCollection('users');
   const { user } = useAuth();
   const router = useRouter();
-  
+
+  const sampleData = [
+    {
+      id: '1',
+      name: 'Alice Johnson',
+      emailId: 'alice@example.com',
+      phoneNo: '123-456-7890',
+      status: 'Active',
+      role: 'Customer',
+      access: 'Customer Access',
+    },
+    {
+      id: '2',
+      name: 'Bob Smith',
+      emailId: 'bob@example.com',
+      phoneNo: '987-654-3210',
+      status: 'Inactive',
+      role: 'CFS Admin',
+      access: 'CFS Access',
+    },
+    {
+      id: '3',
+      name: 'Charlie Brown',
+      emailId: 'charlie@example.com',
+      phoneNo: '555-111-2222',
+      status: 'Blacklist',
+      role: 'CFS Viewer',
+      access: 'View Access',
+    },
+  ];
+
   const filteredData = (data?.length ? data : sampleData).filter((item) => {
     const matchesTab =
       activeTab === 'CFS'
@@ -164,6 +193,8 @@ export default function UserTable({ activeTab, searchQuery }) {
           <div className="text-sm text-foreground">
             {filteredData.length} users found
           </div>
+
+    
         </div>
         <DataTable
           columns={columns}
@@ -171,7 +202,6 @@ export default function UserTable({ activeTab, searchQuery }) {
           searchPlaceholder="Search user by name/email/phone..."
         />
       </div>
-      
     </div>
   );
 }

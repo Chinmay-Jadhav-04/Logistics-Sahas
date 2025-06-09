@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Filter, User } from 'lucide-react';
-import Input from '@/components/ui/Input';
+
 import UserTable from './UserTable';
 import MobileUserTable from './MobileUserTable';
 import AddNewUser from './AddNewUser';
-
 
 const Table = ({ activeTab }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -27,7 +26,29 @@ const Table = ({ activeTab }) => {
 
   return (
     <div className="bg-background border rounded-lg shadow-sm p-6">
-      {/* Render appropriate table based on screen size */}
+     
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 mb-6">
+        
+     
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold text-foreground">
+            {activeTab === 'CFS' ? 'CFS Details View Page' : 'Customer Details View Page'}
+          </h2>
+          </div>
+          
+          <div className="flex flex-row justify-end items-center gap-3">
+       
+          <div className="flex items-center gap-2">
+            <User size={20} className="text-gray-600" />
+            <span className="text-sm text-gray-600">User</span>
+          </div>
+          
+
+          <AddNewUser />
+        </div>
+        </div>
+
+  
       {isMobile ? (
         <MobileUserTable 
           activeTab={activeTab} 

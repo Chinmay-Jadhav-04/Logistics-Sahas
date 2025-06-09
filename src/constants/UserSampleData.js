@@ -1,5 +1,4 @@
-// data/UserSampleData.js
-
+// constants/UserSampleData.js
 const sampleData = [
   {
     id: '1',

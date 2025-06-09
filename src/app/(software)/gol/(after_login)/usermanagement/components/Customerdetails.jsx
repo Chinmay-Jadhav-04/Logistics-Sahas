@@ -20,57 +20,57 @@ const Customerdetails = () => {
 
   return (
     <div className="bg-background border rounded-lg shadow-sm p-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-6">Customer Details View Page</h2>
+      <h2 className="text-xl font-semibold text-foreground mb-6">Customer Details View Page</h2>
 
-      {/* User Details Section */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* Left Column */}
+      
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">Name:</p>
-            <p className="font-medium">John Doe</p>
+            <p className="text-sm text-foreground">Name:</p>
+            <p className="font-medium">Shashank Sangawar</p>
           </div>
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">Email:</p>
-            <p className="font-medium">john.doe@example.com</p>
+            <p className="text-sm text-foreground">Email:</p>
+            <p className="font-medium">shashank.sangawar@example.com</p>
           </div>
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">Phone:</p>
-            <p className="font-medium">+1 234 567 8900</p>
+            <p className="text-sm text-foreground">Phone:</p>
+            <p className="font-medium">+91 9987361289</p>
           </div>
         </div>
 
-        {/* Right Column */}
+      
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">Company:</p>
-            <p className="font-medium">ABC Logistics Ltd.</p>
+            <p className="text-sm text-foreground">Company:</p>
+            <p className="font-medium">FlyOver Logistics Ltd.</p>
           </div>
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">Location:</p>
-            <p className="font-medium">New York, USA</p>
+            <p className="text-sm text-foreground">Location:</p>
+            <p className="font-medium">Nava Shewa</p>
           </div>
           <div className="flex items-center space-x-3">
-            <p className="text-sm text-gray-500">ID Proof:</p>
-            <p className="font-medium">DL123456789</p>
+            <p className="text-sm text-foreground">ID Proof:</p>
+            <p className="font-medium">ML123456789</p>
           </div>
         </div>
       </div>
 
-      {/* Uploaded Documents */}
+    
       <div className="mb-8">
-        <h3 className="text-lg font-medium text-gray-800 mb-4">Uploaded Documents:</h3>
+        <h3 className="text-lg font-medium text-foreground mb-4">Uploaded Documents:</h3>
         <div className="flex space-x-4">
-          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-sm">doc1.pdf</span>
-          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-sm">doc2.png</span>
-          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-sm">doc3.jpg</span>
+          <span className="px-3 py-1 bg-accent text-foreground rounded-lg text-sm">doc1.pdf</span>
+          <span className="px-3 py-1 bg-accent text-foreground rounded-lg text-sm">doc2.png</span>
+          <span className="px-3 py-1 bg-accent text-foreground rounded-lg text-sm">doc3.jpg</span>
         </div>
       </div>
 
-      {/* Gallery Upload */}
+    
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-medium text-gray-800">Gallery Upload:</h3>
+          <h3 className="text-lg font-medium text-foreground">Gallery Upload:</h3>
           <label className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg cursor-pointer flex items-center space-x-2">
             <span>Upload Images</span>
             <input
@@ -86,7 +86,7 @@ const Customerdetails = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {uploadedImages.map((image) => (
             <div key={image.id} className="relative group">
-              <div className="aspect-square border-2 border-dashed border-gray-300 rounded-lg overflow-hidden">
+              <div className="aspect-square border-2 border-dashed border-foreground rounded-lg overflow-hidden">
                 <img
                   src={image.url}
                   alt="Uploaded"
@@ -102,7 +102,7 @@ const Customerdetails = () => {
             </div>
           ))}
 
-          {/* Empty Upload Slots */}
+     
           {Array.from({ length: Math.max(0, 6 - uploadedImages.length) }).map((_, index) => (
             <div
               key={`empty-${index}`}

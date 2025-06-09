@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { PackageCheck } from 'lucide-react' // Use consistent icon like Lucide
+import { PackageCheck } from 'lucide-react'
 
 const Services = () => {
   const services = [
@@ -23,7 +23,7 @@ const Services = () => {
   return (
     <div className="bg-background border rounded-lg shadow-sm p-6">
       <div className="flex items-start justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Services</h2>
+        <h2 className="text-lg font-semibold text-foreground">Services</h2>
 
         <div className="flex space-x-2">
           <button
@@ -58,7 +58,7 @@ const Services = () => {
         </div>
       </div>
 
-      <div className="space-y-3 text-gray-700">
+      <div className="space-y-3 text-foreground">
         {services.map(service => (
           <div key={service.id} className="flex items-center space-x-3">
             <span className="text-xl">{service.icon}</span>

@@ -14,7 +14,7 @@ const Facility = () => {
   return (
     <div className="bg-background border rounded-lg shadow-sm p-6">
       <div className="flex items-start justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Facility Details</h2>
+        <h2 className="text-lg font-semibold text-foreground">Facility Details</h2>
 
         <div className="flex space-x-2">
           <button
@@ -44,7 +44,7 @@ const Facility = () => {
       </div>
 
    
-      <div className="flex items-center space-x-3 text-gray-700">
+      <div className="flex items-center space-x-3 text-foreground">
         <span className="text-xl">{facilities[0].icon}</span>
         <span className="font-medium">{facilities[0].name}</span>
       </div>

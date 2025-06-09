@@ -14,7 +14,7 @@ const WarehouseInfo = () => {
   return (
     <div className="bg-background border rounded-lg shadow-sm p-6">
       <div className="flex items-start justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-800">Warehouse Details</h2>
+        <h2 className="text-lg font-semibold text-foreground">Warehouse Details</h2>
 
         <div className="flex space-x-2">
           <button
@@ -43,8 +43,8 @@ const WarehouseInfo = () => {
         </div>
       </div>
 
-      {/* Location, Type, Space row */}
-      <div className="flex items-center space-x-3 text-gray-700">
+      
+      <div className="flex items-center space-x-3 text-foreground">
         <span className="text-xl">{warehouses[0].icon}</span>
         <span className="font-medium">{warehouses[0].name}</span>
       </div>

@@ -105,9 +105,9 @@ const Messages = ({ onSelectConversation, selectedConversation, conversations, o
   const filterOptions = ['All', 'CFS', 'Customer', 'GOL'];
 
   return (
-    <div className="w-full h-full bg-green-50 flex flex-col">
+    <div className="w-full h-full bg-background flex flex-col">
       {/* Header - matches your green design */}
-      <div className="bg-green-600 px-4 py-3 flex items-center justify-between rounded-lg shadow-sm">
+      <div className="bg-primary px-4 py-3 flex items-center justify-between rounded-lg shadow-sm">
         <div className="flex items-center gap-2">
           <h2 className="text-lg font-semibold text-white">Messages</h2>
           {totalUnreadCount > 0 && (
@@ -125,7 +125,7 @@ const Messages = ({ onSelectConversation, selectedConversation, conversations, o
       </div>
 
       {/* Search Bar */}
-      <div className="p-4 bg-green-100 rounded-lg border-b border-green-200">
+      <div className="p-4 bg-accent rounded-lg border-b border-background">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-4 h-4" />
           <input
@@ -139,7 +139,7 @@ const Messages = ({ onSelectConversation, selectedConversation, conversations, o
       </div>
 
       {/* Filter Section */}
-      <div className="px-4 py-2 bg-green-100 border rounded-lg border-green-200">
+      <div className="px-4 py-2 bg-accent border rounded-lg border-background">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowFilter(!showFilter)}
@@ -173,7 +173,7 @@ const Messages = ({ onSelectConversation, selectedConversation, conversations, o
       </div>
 
       {/* Conversations List */}
-      <div className="flex-1 overflow-y-auto bg-green-50">
+      <div className="flex-1 overflow-y-auto rounded-lg bg-accent">
         {filteredConversations.map((conversation) => (
           <div
             key={conversation.id}

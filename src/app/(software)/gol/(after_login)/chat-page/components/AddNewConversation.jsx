@@ -106,28 +106,28 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
 
   return (
     <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-background border rounded-lg shadow-xl w-full max-w-md mx-4 max-h-[80vh] flex flex-col">
+      <div className="bg-background border rounded-lg w-full max-w-md mx-4 max-h-[80vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">New Conversation</h2>
+          <h2 className="text-lg font-semibold text-primary">New Conversation</h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-1 hover:bg-accent rounded-full transition-colors"
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="w-5 h-5 text-primary" />
           </button>
         </div>
 
         {/* Search */}
         <div className="p-4 border-b border-gray-200">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary w-4 h-4" />
             <input
               type="text"
               placeholder="Search users, companies..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 bg-accent rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -136,7 +136,7 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
         {selectedUsers.length > 0 && (
           <div className="p-4 border-b border-gray-200">
             <div className="flex items-center gap-2 mb-2">
-              <Users className="w-4 h-4 text-gray-500" />
+              <Users className="w-4 h-4 text-primary" />
               <span className="text-sm font-medium text-gray-700">
                 Selected ({selectedUsers.length})
               </span>
@@ -176,13 +176,13 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
             <div
               key={user.id}
               onClick={() => handleUserSelect(user)}
-              className={`flex items-center gap-3 p-4 hover:bg-gray-50 cursor-pointer transition-colors ${
+              className={`flex items-center gap-3 p-4 hover:bg-accent cursor-pointer transition-colors ${
                 selectedUsers.find(u => u.id === user.id) ? 'bg-green-50' : ''
               }`}
             >
               {/* Avatar */}
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+                <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center overflow-hidden">
                   <img
                     src={user.avatar}
                     alt={user.name}
@@ -199,9 +199,9 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
 
               {/* User Info */}
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-gray-900 truncate">{user.name}</h3>
-                <p className="text-sm text-gray-500 truncate">{user.company}</p>
-                <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                <h3 className="font-medium text-primary truncate">{user.name}</h3>
+                <p className="text-sm text-light-primary truncate">{user.company}</p>
+                <p className="text-xs text-secondary truncate">{user.email}</p>
               </div>
 
               {/* Selection Indicator */}
@@ -217,17 +217,17 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200 flex gap-2">
+        <div className="p-4 border border-background flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+            className="flex-1 px-4 py-2 text-white bg-primary rounded-lg hover:bg-light-primary transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleStartConversation}
             disabled={selectedUsers.length === 0}
-            className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-light-primary disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
             Start Chat ({selectedUsers.length})
           </button>

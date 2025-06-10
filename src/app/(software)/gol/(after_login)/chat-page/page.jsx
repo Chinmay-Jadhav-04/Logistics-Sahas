@@ -78,9 +78,9 @@ const ChatPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex bg-gray-100 h-full w-full">
       {/* Messages Sidebar */}
-      <div className="w-80 bg-background border border-green-200">
+      <div className="w-80 bg-background border border-background">
         <Messages 
           onSelectConversation={handleSelectConversation}
           selectedConversation={selectedConversation}

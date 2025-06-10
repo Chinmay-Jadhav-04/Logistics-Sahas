@@ -167,9 +167,9 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
   if (!conversation) return null;
 
   return (
-    <div className="flex flex-col h-full bg-gray-100">
+    <div className="flex flex-col h-full bg-accent rounded-full">
       {/* Header - matches the green design */}
-      <div className="bg-green-600 px-4 py-3 flex items-center gap-3 rounded-lg shadow-sm">
+      <div className="bg-primary px-4 py-3 flex items-center gap-3 rounded-lg shadow-sm">
         <div className="relative">
           <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
             <img
@@ -194,7 +194,7 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-accent rounded-lg">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -234,9 +234,9 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
       </div>
 
       {/* Message Input */}
-      <div className="bg-white border-t border-gray-200 p-4">
+      <div className="bg-accent border border-background rounded-lg p-4">
         <div className="flex items-center gap-3">
-          <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors">
+          <button className="p-2 text-primary hover:text-primary hover:bg-background rounded-full transition-colors">
             <Paperclip className="w-5 h-5" />
           </button>
           

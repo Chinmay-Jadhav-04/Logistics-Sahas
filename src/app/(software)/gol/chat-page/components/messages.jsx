@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 
-const Messages = ({ onSelectConversation, selectedConversation }) => {
+const Messages = ({ onSelectConversation, selectedConversation, conversations }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
-  // Mock data - replace with actual data from PocketBase
-  const conversations = [
+  // Default mock data if no conversations passed
+  const defaultConversations = [
     {
       id: 1,
       name: 'FX CFS',
@@ -81,47 +81,50 @@ const Messages = ({ onSelectConversation, selectedConversation }) => {
     }
   ];
 
-  const filteredConversations = conversations.filter(conv =>
+  const conversationsList = conversations || defaultConversations;
+
+  const filteredConversations = conversationsList.filter(conv =>
     conv.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="w-full h-full bg-gray-100 flex flex-col">
+    <div className="w-full h-full bg-accent flex flex-col">
       {/* Header */}
-      <div className="bg-white px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-background px-4 py-3 border-b border-green-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-semibold text-gray-800">Messages</h2>
-          <span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-            {conversations.reduce((acc, conv) => acc + conv.unreadCount, 0)}
+          <h2 className="text-lg font-semibold text-foreground">Messages</h2>
+          <span className="bg-light-primary text-white text-xs px-2 py-1 rounded-full">
+            {conversationsList.reduce((acc, conv) => acc + conv.unreadCount, 0)}
           </span>
         </div>
-        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-          <Plus className="w-5 h-5 text-gray-600" />
+        <button className="p-2 hover:bg-accent rounded-full transition-colors">
+          <Plus className="w-5 h-5 text-primary" />
         </button>
       </div>
 
       {/* Search */}
-      <div className="p-4 bg-white border-b border-gray-200">
+      <div className="p-4 bg-background border-b border-green
+      -200">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary w-4 h-4" />
           <input
             type="text"
             placeholder="Search messages"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 bg-accent rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-light-primary focus:border-transparent text-foreground placeholder:text-secondary"
           />
         </div>
       </div>
 
       {/* Conversations List */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-accent">
         {filteredConversations.map((conversation) => (
           <div
             key={conversation.id}
             onClick={() => onSelectConversation(conversation)}
-            className={`flex items-center gap-3 p-4 hover:bg-gray-50 cursor-pointer border-b border-gray-100 transition-colors ${
-              selectedConversation?.id === conversation.id ? 'bg-green-50 border-l-4 border-l-green-500' : ''
+            className={`flex items-center gap-3 p-4 hover:bg-white/70 cursor-pointer border-b border-white/30 transition-colors ${
+              selectedConversation?.id === conversation.id ? 'bg-white border-l-4 border-l-light-primary shadow-sm' : ''
             }`}
           >
             {/* Avatar */}
@@ -137,33 +140,50 @@ const Messages = ({ onSelectConversation, selectedConversation }) => {
                 />
               </div>
               {conversation.isOnline && (
-                <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                <div className="absolute bottom-0 right-0 w-3 h-3 bg-light-primary rounded-full border-2 border-white"></div>
               )}
             </div>
 
             {/* Content */}
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="font-medium text-gray-900 truncate">
+                <h3 className="font-medium text-foreground truncate">
                   {conversation.name}
                 </h3>
-                <span className="text-xs text-gray-500 flex-shrink-0">
+                <span className="text-xs text-secondary flex-shrink-0">
                   {conversation.time}
                 </span>
               </div>
-              <p className="text-sm text-gray-600 truncate">
+              <p className="text-sm text-secondary truncate">
                 {conversation.lastMessage}
               </p>
             </div>
 
             {/* Unread Badge */}
             {conversation.unreadCount > 0 && (
-              <div className="bg-green-500 text-white text-xs px-2 py-1 rounded-full min-w-[20px] text-center">
+              <div className="bg-light-primary text-white text-xs px-2 py-1 rounded-full min-w-[20px] text-center font-medium">
                 {conversation.unreadCount}
               </div>
             )}
           </div>
         ))}
+
+        {/* Help section at bottom */}
+        <div className="p-4 mt-auto">
+          <div className="bg-white/50 rounded-lg p-3 text-sm">
+            <p className="text-foreground font-medium mb-1">
+              Are you facing any difficulties with your logistics needs? I'm here to help!
+            </p>
+            <div className="flex gap-2 mt-2">
+              <button className="px-3 py-1 bg-light-primary text-white rounded text-xs hover:bg-primary transition-colors">
+                Yes, I need help
+              </button>
+              <button className="px-3 py-1 bg-gray-200 text-secondary rounded text-xs hover:bg-gray-300 transition-colors">
+                No, thanks
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

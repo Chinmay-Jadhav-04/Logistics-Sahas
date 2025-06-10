@@ -29,13 +29,13 @@ const UserManagementPage = () => {
             </p>
 
             {/* Tab Navigation */}
-            <div className="flex space-x-1 bg-gray-100 rounded-lg p-1 w-fit">
+            <div className="flex space-x-1 bg-accent rounded-lg p-1 w-fit">
               <button
                 onClick={() => setActiveTab('CFS')}
                 className={`px-6 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'CFS'
                     ? 'bg-green-600 text-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-foreground hover:text-foreground'
                 }`}
               >
                 Clients
@@ -45,7 +45,7 @@ const UserManagementPage = () => {
                 className={`px-6 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'Customer'
                     ? 'bg-green-600 text-white shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-foreground hover:text-foreground'
                 }`}
               >
                 Customers

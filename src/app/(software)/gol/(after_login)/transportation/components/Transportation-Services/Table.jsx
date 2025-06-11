@@ -4,7 +4,7 @@ import { LucidePenSquare, MapPin } from 'lucide-react';
 import { Button } from '@/components/button';
 import EditForm from './EditForm';
 import Form from './Form';
-import { sampleServices } from '@/constants/transportation'; // ⬅️ Import sample data
+import { sampleServices } from '@/constants/transportation'; 
 
 export default function Table() {
 	const { data, deleteItem } = useCollection('gol_transportation-services');

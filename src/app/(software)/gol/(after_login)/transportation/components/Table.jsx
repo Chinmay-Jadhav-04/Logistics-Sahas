@@ -1,13 +1,20 @@
+import { useState } from 'react';
 import { DataTable } from '@/components/ui/Table';
 import { useCollection } from '@/hooks/useCollection';
 import { LucidePenSquare, MapPin } from 'lucide-react';
 import { Button } from '@/components/button';
 import EditForm from './EditForm';
 import Form from './Form';
-import { sampleServices } from '@/constants/transportation'; 
+import DriverDetailsPage from './DriverDetailsPage';
+import TrackingPage from './TrackingPage';
+import { sampleServices } from '@/constants/transportation';
+import { useIsMobile } from '@/hooks/use-mobile';
+import MobileDataTable from '@/components/ui/MobileDataTable';
 
 export default function Table() {
 	const { data, deleteItem } = useCollection('gol_transportation-services');
+	const [currentView, setCurrentView] = useState('table'); // 'table', 'driver-details', 'tracking'
+	const [selectedService, setSelectedService] = useState(null);
 
 	const displayData = data?.length ? data : sampleServices;
 
@@ -26,6 +33,24 @@ export default function Table() {
 		);
 	};
 
+	const handleMapPinClick = (service) => {
+		setSelectedService(service);
+		setCurrentView('driver-details');
+	};
+
+	const handleTrackJourney = (driverData) => {
+		setCurrentView('tracking');
+	};
+
+	const handleBackToTable = () => {
+		setCurrentView('table');
+		setSelectedService(null);
+	};
+
+	const handleBackToDriverDetails = () => {
+		setCurrentView('driver-details');
+	};
+
 	const columns = [
 		{ id: 'orderId', accessorKey: 'orderId', header: 'Order ID', filterable: true, cell: ({ row }) => <div className="font-medium">{row.original.orderId}</div> },
 		{ id: 'vehicleNo', accessorKey: 'vehicleNo', header: 'Vehicle No', filterable: true, cell: ({ row }) => <div>{row.original.vehicleNo}</div> },
@@ -40,23 +65,43 @@ export default function Table() {
 			filterable: false,
 			cell: ({ row }) => (
 				<div className='flex gap-2 items-center justify-center'>
-					
-					<EditForm  
-					    size={18}
-						info={row.original} 
+					<EditForm
+						size={18}
+						info={row.original}
 						className="cursor-pointer text-primary"
 					/>
 					<MapPin
 						size={18}
-						className="cursor-pointer text-primary"
+						className="cursor-pointer text-primary hover:text-primary/80"
+						onClick={() => handleMapPinClick(row.original)}
 					/>
-					
-					
 				</div>
 			),
 		}
 	];
 
+	// Render different views based on currentView state
+	if (currentView === 'driver-details') {
+		return (
+			<DriverDetailsPage
+				driverId={selectedService?.id}
+				driverData={selectedService}
+				onBack={handleBackToTable}
+				onTrackJourney={handleTrackJourney}
+			/>
+		);
+	}
+
+	if (currentView === 'tracking') {
+		return (
+			<TrackingPage
+				orderData={selectedService}
+				onBack={handleBackToDriverDetails}
+			/>
+		);
+	}
+
+	// Default table view
 	return (
 		<div className='w-full bg-accent border shadow-md shadow-foreground/40 rounded-lg p-6'>
 			<div className="flex gap-4 items-center justify-between mb-6">
@@ -69,8 +114,14 @@ export default function Table() {
 					Showing sample data — no records found in database.
 				</p>
 			)}
+			{
+				useIsMobile() ? (
+					<MobileDataTable columns={columns} data={displayData} />
+				) : (
+					<DataTable columns={columns} data={displayData} />
+				)
+			}
 
-			<DataTable columns={columns} data={displayData} />
 		</div>
 	);
 }

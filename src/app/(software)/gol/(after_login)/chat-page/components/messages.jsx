@@ -178,9 +178,9 @@ const Messages = ({ onSelectConversation, selectedConversation, conversations, o
           <div
             key={conversation.id}
             onClick={() => onSelectConversation(conversation)}
-            className={`flex items-center gap-3 p-3 hover:bg-white hover:bg-opacity-70 cursor-pointer border-b border-green-100 transition-colors ${
+            className={`flex items-center gap-3 p-3 hover:bg-accent hover:bg-opacity-70 cursor-pointer border-b border-background transition-colors ${
               selectedConversation?.id === conversation.id 
-                ? 'bg-white shadow-sm border-l-4 border-l-green-600' 
+                ? 'bg-accent shadow-sm border-l-4 border-l-green-600' 
                 : ''
             }`}
           >

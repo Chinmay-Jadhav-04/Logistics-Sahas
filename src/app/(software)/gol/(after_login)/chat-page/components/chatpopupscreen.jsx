@@ -1,12 +1,26 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip } from 'lucide-react';
+import { 
+  Send, 
+  Paperclip, 
+  ArrowLeft, 
+  Image, 
+  FileText, 
+  Video, 
+  User, 
+  Mic,
+  Smile
+} from 'lucide-react';
 import EmojiInput from './EmojiInput';
 
 const ChatPopupScreen = ({ conversation, onClose }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
+  const [showAttachmentOptions, setShowAttachmentOptions] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const messagesEndRef = useRef(null);
+  const attachmentRef = useRef(null);
+  const emojiRef = useRef(null);
 
   // Mock messages data matching the design in your image
   useEffect(() => {
@@ -131,6 +145,23 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
     }
   }, [conversation]);
 
+  // Handle click outside for attachment options and emoji picker
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (attachmentRef.current && !attachmentRef.current.contains(event.target)) {
+        setShowAttachmentOptions(false);
+      }
+      if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -164,12 +195,41 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
     setMessage(prev => prev + emoji);
   };
 
+  const handleAttachmentClick = (type) => {
+    console.log(`Selected attachment type: ${type}`);
+    setShowAttachmentOptions(false);
+    
+    // Handle different attachment types
+    switch(type) {
+      case 'photo':
+        // Handle photo upload
+        break;
+      case 'document':
+        // Handle document upload
+        break;
+      default:
+        break;
+    }
+  };
+
+  const attachmentOptions = [
+    { type: 'photo', icon: Image, label: 'Photo', color: 'bg-blue-500' },
+    { type: 'document', icon: FileText, label: 'Document', color: 'bg-green-500' },
+  ];
+
   if (!conversation) return null;
 
   return (
-    <div className="flex flex-col h-full bg-accent rounded-full">
-      {/* Header - matches the green design */}
-      <div className="bg-primary px-4 py-3 flex items-center gap-3 rounded-lg shadow-sm">
+    <div className="flex flex-col min-h-[80dvh] rounded-lg bg-gray-50">
+      {/* Header - matches the green design with back button */}
+      <div className="bg-primary px-4 py-3 rounded-lg flex items-center gap-3 shadow-sm">
+        <button 
+          onClick={onClose}
+          className="p-2 hover:bg-green-700 rounded-full transition-colors"
+        >
+          <ArrowLeft className="w-5 h-5 text-white" />
+        </button>
+        
         <div className="relative">
           <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
             <img
@@ -185,6 +245,7 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
           )}
         </div>
+        
         <div className="flex-1">
           <h3 className="font-medium text-white">{conversation.name}</h3>
           <p className="text-sm text-green-100">
@@ -194,7 +255,7 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-accent rounded-lg">
+      <div className="flex-1 rounded-lg overflow-y-auto p-4 space-y-3">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -234,11 +295,38 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
       </div>
 
       {/* Message Input */}
-      <div className="bg-accent border border-background rounded-lg p-4">
+      <div className="bg-accent rounded-lg border border-primary p-4">
         <div className="flex items-center gap-3">
-          <button className="p-2 text-primary hover:text-primary hover:bg-background rounded-full transition-colors">
-            <Paperclip className="w-5 h-5" />
-          </button>
+          {/* Attachment Button with Options */}
+          <div className="relative" ref={attachmentRef}>
+            <button 
+              onClick={() => setShowAttachmentOptions(!showAttachmentOptions)}
+              className="p-2 text-primary hover:text-primary hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <Paperclip className="w-5 h-5" />
+            </button>
+            
+            {/* Attachment Options Popup */}
+            {showAttachmentOptions && (
+              <div className="absolute bottom-full left-0 mb-2 bg-accent rounded-lg shadow-lg border border-gray-200 p-2 min-w-[200px]">
+                {attachmentOptions.map((option) => {
+                  const IconComponent = option.icon;
+                  return (
+                    <button
+                      key={option.type}
+                      onClick={() => handleAttachmentClick(option.type)}
+                      className="flex items-center gap-3 w-full p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                      <div className={`p-2 rounded-full ${option.color}`}>
+                        <IconComponent className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-sm text-gray-700">{option.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
           
           <div className="flex-1 relative">
             <input
@@ -249,7 +337,8 @@ const ChatPopupScreen = ({ conversation, onClose }) => {
               placeholder="Type a message..."
               className="w-full px-4 py-2 pr-12 bg-gray-100 rounded-full border-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-colors"
             />
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+            
+            <div className="absolute bg-accent right-3 top-1/2 transform -translate-y-1/2">
               <EmojiInput onEmojiClick={handleEmojiClick} />
             </div>
           </div>

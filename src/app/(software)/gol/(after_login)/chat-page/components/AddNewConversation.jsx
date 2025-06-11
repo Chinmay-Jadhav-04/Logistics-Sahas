@@ -105,7 +105,7 @@ const AddNewConversation = ({ isOpen, onClose, onAddConversation }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-accent bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-background border rounded-lg w-full max-w-md mx-4 max-h-[80vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border border-gray-200">

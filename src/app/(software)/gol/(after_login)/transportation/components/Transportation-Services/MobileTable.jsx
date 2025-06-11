@@ -1,39 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Search, Download, Eye, CircleCheckBig, CircleX, } from 'lucide-react';
+import { Search, Edit, MapPin, Eye } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import { useCollection } from '@/hooks/useCollection';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 export default function MobileTransportList() {
-  const { data, updateItem, mutation } = useCollection('gol_transportation-services', {
-    expand: 'containers,cfs'
-  });
+  const { data, updateItem, mutation } = useCollection('gol_transportation-services');
   const { user } = useAuth();
   console.log(data);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
 
   useEffect(() => {
     if (data?.length > 0) {
-      const filtered_Orders = data.filter(order => {
+      const filtered_Services = data.filter(service => {
         const matchesSearch =
-          order?.id?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
-          order?.consigneeName?.toLowerCase()?.includes(searchQuery.toLowerCase());
+          service?.orderId?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
+          service?.vehicleNo?.toLowerCase()?.includes(searchQuery.toLowerCase()) ||
+          service?.driverName?.toLowerCase()?.includes(searchQuery.toLowerCase());
         return matchesSearch;
       });
-      setFilteredOrders(filtered_Orders);
+      setFilteredServices(filtered_Services);
+    } else {
+      setFilteredServices([]);
     }
   }, [data, searchQuery]);
 
   const getStatusBadgeClass = (status) => {
     switch (status) {
-      case 'Accepted':
-        return 'bg-green-100 text-green-800';
+      case 'On Route':
+        return 'bg-blue-100 text-blue-800';
       case 'Pending':
         return 'bg-yellow-100 text-yellow-800';
-      case 'Rejected':
+      case 'Delivered':
+        return 'bg-green-100 text-green-800';
+      case 'Cancelled':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -44,10 +47,9 @@ export default function MobileTransportList() {
     try {
       await updateItem(id, {
         status: status,
-        golVerified: true,
-        golVerifiedBy: user.id
+        updatedBy: user.id
       });
-      toast.success('Updated the Order');
+      toast.success('Updated the Service Status');
     } catch (error) {
       console.log(error)
       toast.error(error.message);
@@ -64,7 +66,7 @@ export default function MobileTransportList() {
           <div className="relative flex-1 mr-2">
             <Input
               type="text"
-              placeholder="Search by Order ID / Consignee Name"
+              placeholder="Search by vehicle/container no."
               className="pl-8 w-full bg-accent"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -74,50 +76,56 @@ export default function MobileTransportList() {
         </div>
 
         <div className="px-4 pb-4">
-          {filteredOrders.map((request, index) => (
-            <div key={index} className="bg-[var(--accent)] rounded-lg p-3 mb-3 shadow-sm">
-              <div className="flex justify-between items-start mb-1">
-                <div className="font-medium"># {request.id}</div>
-                <div className='flex gap-2 items-center'>
-                  <span className={`text-xs px-2 py-1 rounded-full ${getStatusBadgeClass(request.status)}`}>
-                    {request.status}
-                  </span>
+          {filteredServices.length > 0 ? (
+            filteredServices.map((service, index) => (
+              <div key={index} className="bg-[var(--accent)] rounded-lg p-3 mb-3 shadow-sm">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="font-medium text-lg">{service.orderId}</div>
+                  <div className='flex gap-2 items-center'>
+                    <span className={`text-xs px-2 py-1 rounded-full ${getStatusBadgeClass(service.status)}`}>
+                      {service.status}
+                    </span>
+                  </div>
+                </div>
+                <div className="text-sm text-primary mb-1">
+                  <strong>Vehicle:</strong> {service.vehicleNo}
+                </div>
+                <div className="text-sm text-primary mb-1">
+                  <strong>Driver:</strong> {service.driverName}
+                </div>
+                <div className="text-sm text-primary mb-1">
+                  <strong>Phone:</strong> {service.phoneNumber}
+                </div>
+                <div className="text-sm text-primary mb-2">
+                  <strong>Route:</strong> {service.route}
+                </div>
+                <div className="flex justify-end items-center pt-2 border-t">
+                  <div className='flex gap-3 items-center'>
+                    <button
+                      className="flex items-center gap-1 px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                      onClick={() => console.log('Update service', service.id)}
+                    >
+                      <Edit size={14} />
+                      Update
+                    </button>
+                    <button
+                      className="flex items-center gap-1 px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700"
+                      onClick={() => console.log('Track service', service.id)}
+                    >
+                      <MapPin size={14} />
+                      Track
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="text-sm text-gray-600 mb-1">Consignee: {request.consigneeName}</div>
-              <div className="text-sm text-gray-600 mb-1">CHA: {request.chaName}</div>
-              <p className="text-sm text-gray-600 mb-1">IGM:- {request.igmNo}</p>
-              <p className="text-sm text-gray-600 mb-1">BL:-{request.blNo}</p>
-              <p className="text-sm text-gray-600 mb-1">BOE: {request.boeNo}</p>
-              <div className="flex justify-end items-center pt-4">
-                <div className='flex gap-2 items-center'>
-                  <Eye
-                    size={18}
-                    className="cursor-pointer text-primary"
-                    onClick={() => console.log('View details for', request.id)}
-                  />
-                  <CircleCheckBig
-                    size={18}
-                    className="cursor-pointer text-primary"
-                    onClick={() => handleStatusUpdate(request.id, request.status)}
-                  />
-                  <CircleX
-                    size={18}
-                    className="cursor-pointer text-primary"
-                    onClick={() => handleStatusUpdate(request.id, 'Rejected')}
-                  />
-                  <Download
-                    size={18}
-                    className="cursor-pointer text-primary"
-                    onClick={() => console.log('Download files for', request.id)}
-                  />
-                </div>
-              </div>
+            ))
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              No transportation services found
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
   );
 }
-

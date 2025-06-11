@@ -8,30 +8,19 @@ import { Select, SelectItem } from "@/components/ui/Select";
 import { useCollection } from "@/hooks/useCollection";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import MultiSelectDatalist from "@/components/ui/MultiSelectDatalist";
 
 export default function Form() {
   const { user } = useAuth();
-  const { data: containers } = useCollection('containers');
-  const { data: serviceProviders } = useCollection('allowed_service_providers', {
-    expand: 'provider,provider.service'
-  });
-  const { createItem, mutation } = useCollection('cfs_orders');
+  const { createItem, mutation } = useCollection('gol_transportation-services');
 
   const [formData, setFormData] = useState({
-    igmNo: '',
-    blNo: '',
-    boeNo: '',
-    consigneeName: '',
-    chaName: '',
-    cfs: '',
-    fromDate: new Date().toISOString().split('T')[0],
-    toDate: new Date().toISOString().split('T')[0],
-    orderDescription: '',
-    status: 'Pending',
-    files: []
+    orderId: '',
+    vehicleNo: '',
+    driverName: '',
+    phoneNumber: '',
+    route: '',
+    status: 'Pending'
   });
-  const [selectedContainers, setSelectedContainers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleChange = (e) => {
@@ -44,56 +33,31 @@ export default function Form() {
 
   const handleReset = () => {
     setFormData({
-      igmNo: '',
-      blNo: '',
-      boeNo: '',
-      consigneeName: '',
-      chaName: '',
-      cfs: '',
-      fromDate: new Date().toISOString().split('T')[0],
-      toDate: new Date().toISOString().split('T')[0],
-      orderDescription: '',
-      status: 'Pending',
-      files: []
+      orderId: '',
+      vehicleNo: '',
+      driverName: '',
+      phoneNumber: '',
+      route: '',
+      status: 'Pending'
     });
-    setSelectedContainers([]);
-  };
-
-  const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
-    setFormData((prev) => ({
-      ...prev,
-      files
-    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const data = new FormData();
-      data.append('igmNo', formData.igmNo);
-      data.append('blNo', formData.blNo);
-      data.append('boeNo', formData.boeNo);
-      data.append('consigneeName', formData.consigneeName);
-      data.append('chaName', formData.chaName);
-      data.append('cfs', formData.cfs);
-      data.append('fromDate', formData.fromDate);
-      data.append('toDate', formData.toDate);
-      data.append('orderDescription', formData.orderDescription);
-      data.append('createdBy', user.id);
-      data.append('status', formData.status);
-      // Append container IDs as JSON
-      data.append('containers', JSON.stringify(selectedContainers));
-      // Append each file
-      formData.files.forEach((file) => {
-        data.append('files', file); // `files` must match the PocketBase field name
-      });
+    
+    // Generate Order ID if not provided
+    const orderData = {
+      ...formData,
+      orderId: formData.orderId || `TRX${Date.now().toString().slice(-3)}`,
+      createdBy: user.id
+    };
 
-      console.log('Form submitted:', data);
-      await createItem(data);
-      toast.success('Created a new order');
+    try {
+      console.log('Transportation Service Submitted:', orderData);
+      await createItem(orderData);
+      toast.success('Created new transportation service');
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.message);
     } finally {
       handleReset();
@@ -102,185 +66,113 @@ export default function Form() {
     }
   };
 
+  const statusOptions = [
+    { value: 'Pending', label: 'Pending' },
+    { value: 'On Route', label: 'On Route' },
+    { value: 'Delivered', label: 'Delivered' },
+    { value: 'Cancelled', label: 'Cancelled' }
+  ];
+
   return (
     <Dialog
       open={isOpen}
       onOpenChange={setIsOpen}
       trigger={
         <Button
-          title={'New Order'}
+          title={'CREATE NEW'}
           icon={<Plus className='w-5 h-5' />}
           iconPosition='right'
-          className='rounded-md'
+          className='rounded-md bg-green-600 hover:bg-green-700'
           textSize='text-sm'
         />
       }
-      title="Create New Order"
+      title="Create New Transportation Service"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-[60dvw]">
         <div className='flex flex-col gap-2'>
-          <Label title={'IGM Number'} />
+          <Label title={'Order ID'} />
           <Input
             type="text"
-            name="igmNo"
-            value={formData.igmNo}
+            name="orderId"
+            value={formData.orderId}
             onChange={handleChange}
-            placeholder="Enter IGM number"
+            placeholder="e.g., TRX001"
             className='bg-accent'
           />
         </div>
 
         <div className='flex flex-col gap-2'>
-          <Label title={'BL Number'} />
+          <Label title={'Vehicle Number'} />
           <Input
             type="text"
-            name="blNo"
-            value={formData.blNo}
+            name="vehicleNo"
+            value={formData.vehicleNo}
             onChange={handleChange}
-            placeholder="Enter BL number"
+            placeholder="e.g., MH12AB1234"
             className='bg-accent'
           />
         </div>
 
         <div className='flex flex-col gap-2'>
-          <Label title={'BOE Number'} />
+          <Label title={'Driver Name'} />
           <Input
             type="text"
-            name="boeNo"
-            value={formData.boeNo}
+            name="driverName"
+            value={formData.driverName}
             onChange={handleChange}
-            placeholder="Enter BOE number"
+            placeholder="Enter driver name"
             className='bg-accent'
           />
         </div>
 
         <div className='flex flex-col gap-2'>
-          <Label title={'Consignee Name'} />
+          <Label title={'Phone Number'} />
+          <Input
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            placeholder="+91-1234567890"
+            className='bg-accent'
+          />
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <Label title={'Route'} />
           <Input
             type="text"
-            name="consigneeName"
-            value={formData.consigneeName}
+            name="route"
+            value={formData.route}
             onChange={handleChange}
-            placeholder="Enter Consignee Name"
+            placeholder="e.g., Mumbai → Delhi"
             className='bg-accent'
           />
         </div>
 
         <div className='flex flex-col gap-2'>
-          <Label title={'CHA Name'} />
-          <Input
-            type="text"
-            name="chaName"
-            value={formData.chaName}
-            onChange={handleChange}
-            placeholder="Enter CHA Name"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'CFS Facility'} />
-          {
-            serviceProviders?.length > 0 && (
-              <Select value={formData.cfs} onValueChange={(value) => setFormData({ ...formData, cfs: value })} placeholder='Select CFS Facility'>
-                {
-                  serviceProviders
-                    .filter((provider) => {
-                      const services = provider?.expand?.provider?.expand?.service
-                      const condition = services.find((service) => service.title === 'CFS')
-                      if (condition.id) {
-                        return provider
-                      }
-                    })
-                    .map((provider, index) => (
-                      <SelectItem
-                        key={index}
-                        value={provider?.provider}>{provider?.expand?.provider?.title} - {provider?.expand?.provider?.location}
-                      </SelectItem>
-                    ))
-                }
-              </Select>
-            )
-          }
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title="From Date" />
-          <Input
-            type="date"
-            name="fromDate"
-            value={formData.fromDate}
-            onChange={handleChange}
-            placeholder="Select date"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title="To Date" />
-          <Input
-            type="date"
-            name="toDate"
-            value={formData.toDate}
-            onChange={handleChange}
-            placeholder="Select date"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'Order Description'} />
-          <Input
-            type="text"
-            name="orderDescription"
-            value={formData.orderDescription}
-            onChange={handleChange}
-            placeholder="Enter Order Description"
-            className='bg-accent'
-          />
+          <Label title={'Status'} />
+          <Select 
+            value={formData.status} 
+            onValueChange={(value) => setFormData({ ...formData, status: value })} 
+            placeholder='Select Status'
+          >
+            {statusOptions.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
       </div>
-
-
-      <div className='flex flex-col gap-2 mt-4'>
-        <Label title={'Containers'} />
-        <MultiSelectDatalist
-          label="Select Containers"
-          options={containers}
-          value={selectedContainers}
-          onValueChange={setSelectedContainers}
-          getOptionLabel={(container) => `${container.containerNo} - ${container.size}`}
-          getOptionValue={(container) => container.id}
-          placeholder="Choose containers..."
-        />
-      </div>
-
-      <div className='flex flex-col gap-2 mt-4'>
-        <Label title={'Upload Documents'} />
-        <div className="flex items-center gap-2 mt-2">
-          <label className="flex items-center cursor-pointer border rounded-xl px-4 py-2 bg-accent">
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-            </svg>
-            <span className='text-sm'>Choose File</span>
-            <input
-              type="file"
-              className="hidden"
-              multiple
-              onChange={handleFileChange}
-            />
-          </label>
-          <span className="ml-2 text-sm text-gray-500">
-            {formData.files.length > 0
-              ? formData.files.map((file) => file.name).join(', ')
-              : 'No files chosen'}
-          </span>
-        </div>
-      </div>
-
 
       <div className="mt-6">
-        <Button onClick={handleSubmit} title={'Submit Request'} icon={<Upload />} iconPosition='right' className='rounded-xl' />
+        <Button 
+          onClick={handleSubmit} 
+          title={'Create Service'} 
+          icon={<Upload />} 
+          iconPosition='right' 
+          className='rounded-xl bg-green-600 hover:bg-green-700' 
+        />
       </div>
     </Dialog>
   );

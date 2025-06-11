@@ -5,7 +5,7 @@ import { useCollection } from '@/hooks/useCollection';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
-export default function MobileRequestList() {
+export default function MobileTransportList() {
   const { data, updateItem, mutation } = useCollection('gol_transportation-services', {
     expand: 'containers,cfs'
   });

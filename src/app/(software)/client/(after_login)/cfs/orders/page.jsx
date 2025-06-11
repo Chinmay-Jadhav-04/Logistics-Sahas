@@ -9,7 +9,7 @@ import RequestList from "./components/Table";
 export default function Order() {
 	const { setTitle } = useSidebar();
 	useEffect(() => {
-		setTitle('Customer Orders')
+		setTitle('Transportation Services')
 	}, []);
 
 	return (

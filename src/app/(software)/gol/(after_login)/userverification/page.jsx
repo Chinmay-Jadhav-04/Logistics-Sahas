@@ -67,8 +67,8 @@ const UserVerificationPage = () => {
           onClick={() => setVerificationStatus('Approved')}
           className={`px-4 py-2 rounded-lg font-medium text-sm ${
             verificationStatus === 'Approved'
-              ? 'bg-blue-600 text-white'
-              : 'bg-blue-100 text-blue-700'
+              ? 'bg-light-primary text-white'
+              : 'bg-light-primary text-light-primary'
           }`}
         >
           ✓ Approved
@@ -78,7 +78,7 @@ const UserVerificationPage = () => {
           className={`px-4 py-2 rounded-lg font-medium text-sm ${
             verificationStatus === 'Rejected'
               ? 'bg-red-600 text-white'
-              : 'bg-red-100 text-red-700'
+              : 'bg-red-600 text-white'
           }`}
         >
           ✕ Rejected

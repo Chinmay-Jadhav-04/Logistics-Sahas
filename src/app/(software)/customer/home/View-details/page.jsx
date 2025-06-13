@@ -56,25 +56,25 @@ const ViewDetailsPage = () => {
         {/* Back Button */}
         <button
           onClick={() => router.push('/customer/home')}
-          className="flex items-center border border-bg-foreground rounded-lg p-2 text-green-800 font-semibold hover:underline"
+          className="flex items-center border border-bg-foreground bg-background rounded-lg p-2 text-primary font-semibold hover:underline"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>Back to Home</span>
         </button>
 
         {/* Header */}
-        <div className="bg-white rounded-lg border shadow-sm p-6">
-          <h1 className="text-2xl font-bold text-gray-900">{cfsProvider.title}</h1>
-          <p className="text-sm text-gray-600 mb-3">{cfsProvider.location}</p>
+        <div className="bg-accent rounded-lg border shadow-sm p-6">
+          <h1 className="text-2xl font-bold text-primary">{cfsProvider.title}</h1>
+          <p className="text-sm text-light-primary mb-3">{cfsProvider.location}</p>
           <div className="flex items-center gap-3 flex-wrap">
             <div className="flex items-center">
               <Star className="h-5 w-5 text-yellow-400 fill-current mr-1" />
               <span className="font-medium">{cfsProvider.rating?.toFixed(1) || '0.0'}</span>
-              <span className="text-sm text-gray-500 ml-1">rating</span>
+              <span className="text-sm text-light-primary ml-1">rating</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {cfsProvider.tags?.tags?.map((tag, idx) => (
-                <span key={idx} className="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">
+                <span key={idx} className="px-3 py-1 text-sm bg-background text-primary rounded-full">
                   {tag}
                 </span>
               ))}
@@ -83,7 +83,7 @@ const ViewDetailsPage = () => {
         </div>
 
         {/* Photos */}
-        <div className="bg-white rounded-lg border shadow-sm p-6">
+        <div className="rounded-lg border shadow-sm p-6">
           <Photos images={imageUrls} title={cfsProvider.title} />
         </div>
 
@@ -96,7 +96,7 @@ const ViewDetailsPage = () => {
         />
 
         {/* Location */}
-        <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="rounded-lg shadow-sm border p-6">
           <Location
             location={cfsProvider.location}
             address={cfsProvider.location}

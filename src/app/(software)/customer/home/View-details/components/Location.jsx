@@ -35,7 +35,7 @@ const Location = ({
 
   return (
     <div 
-      className="bg-white rounded-lg shadow-sm border border-gray-200"
+      className="bg-accent rounded-lg shadow-sm border border-background"
       style={{ backgroundColor: 'var(--accent)' }}
     >
       <div className="p-4 sm:p-6">

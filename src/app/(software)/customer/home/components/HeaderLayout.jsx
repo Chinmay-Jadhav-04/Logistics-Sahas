@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LogInIcon, ArrowUpRight, Users, UserRound, UserRoundIcon, CircleUserRound } from "lucide-react";
+import { LogInIcon, ArrowUpRight, Users, UserRound, CircleUserRound } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { servicesList } from "@/constants/services";
 import { CompanyName } from "@/constants/CompanyName";
@@ -15,34 +15,36 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 	useEffect(() => {
 		const handleScroll = () => {
 			if (window.scrollY > 150) {
-				setDisplayAfterHeader(true)
+				setDisplayAfterHeader(true);
 			} else {
-				setDisplayAfterHeader(false)
+				setDisplayAfterHeader(false);
 			}
-		}
-		window.addEventListener("scroll", handleScroll)
+		};
+		window.addEventListener("scroll", handleScroll);
 		return () => {
-			window.removeEventListener("scroll", handleScroll)
-		}
-	}, [])
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
 	return (
 		<header>
 			{/* Original navigation bar content */}
 			<div className={`bg-[var(--background)] 
 				${displayAfterHeader ? "opacity-0" : "opacity-100"}
-					transition-opacity duration-500 border-b pb-10 border-[var(--foreground)]/60
-				`}
-			>
+				transition-opacity duration-500 border-b pb-10 border-[var(--foreground)]/60
+			`}>
 				<div className="flex flex-col w-full p-4">
 					<div className="flex items-center justify-center w-full">
 						<div className="flex items-center justify-between w-full">
+							{/* Left Logo + Company Name */}
 							<div className="flex items-center gap-3">
 								<div className="flex items-center gap-3 rounded-xl overflow-hidden w-10 h-10">
 									<Image src={'/logo.png'} width={1500} height={1500} alt="Logo" />
 								</div>
 								<h1 className="font-bold">{CompanyName}</h1>
 							</div>
+
+							{/* Right Buttons */}
 							<div className="flex items-center gap-3">
 								<Button
 									title={'Dashboard'} icon={<ArrowUpRight />} iconPosition="right" variant={'outline'}
@@ -55,7 +57,21 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 									}}
 									className="rounded-md"
 								/>
-								<Button title={'Login'} icon={<CircleUserRound size={20} />} iconPosition="right" className="rounded-md" onClick={() => router.push('/login')} />
+								<Button
+									title={'Login'}
+									icon={<CircleUserRound size={20} />}
+									iconPosition="right"
+									className="rounded-md"
+									onClick={() => router.push('/login')}
+								/>
+								<Button
+									title={'Sign Up'}
+									icon={<UserRound size={20} />}
+									iconPosition="right"
+									className="rounded-md"
+									variant="outline"
+									onClick={() => router.push('/signup')}
+								/>
 							</div>
 						</div>
 					</div>
@@ -82,10 +98,10 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 			{/* Fixed header that appears when scrolled */}
 			<div
 				className={`fixed top-0 left-0 right-0 z-50 bg-[var(--accent)] shadow-lg py-2 px-3 sm:px-6 transition-transform duration-300 min-h-20 flex items-center  
-							${displayAfterHeader ? "translate-y-0" : "-translate-y-full"}
-						`}
+				${displayAfterHeader ? "translate-y-0" : "-translate-y-full"}`}
 			>
 				<div className="w-full flex justify-between items-center">
+					{/* Left Logo + Company */}
 					<div className="flex items-center justify-center">
 						<div className="flex gap-3 items-center mr-2 sm:mr-4 flex-shrink-0">
 							<div className="flex items-center gap-3 rounded-xl overflow-hidden w-10 h-10">
@@ -94,6 +110,8 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 							<span className="font-bold text-sm">{CompanyName}</span>
 						</div>
 					</div>
+
+					{/* Services */}
 					<div className="flex space-x-1 sm:space-x-2 md:space-x-3">
 						{servicesList.map((item) => (
 							<Button
@@ -108,22 +126,34 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 						))}
 					</div>
 
-					{
-						isLogin ? (
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center">
-									<div className="h-9 w-9 rounded-full bg-[var(--primary)] flex items-center justify-center mr-2">
-										<Users className="h-5 w-5 text-[var(--background)]" />
-									</div>
-								</div>
+					{/* Right Buttons */}
+					{isLogin ? (
+						<div className="flex items-center space-x-4">
+							<div className="h-9 w-9 rounded-full bg-[var(--primary)] flex items-center justify-center mr-2">
+								<Users className="h-5 w-5 text-[var(--background)]" />
 							</div>
-						) : (
-							<Button title={'Login'} icon={<LogInIcon />} iconPosition="right" className="rounded-md" />
-						)
-					}
-
+						</div>
+					) : (
+						<div className="flex items-center space-x-2">
+							<Button
+								title={'Login'}
+								icon={<LogInIcon />}
+								iconPosition="right"
+								className="rounded-md"
+								onClick={() => router.push('/login')}
+							/>
+							<Button
+								title={'Sign Up'}
+								icon={<LogInIcon />}
+								iconPosition="right"
+								className="rounded-md"
+								variant="outline"
+								onClick={() => router.push('/signup')}
+							/>
+						</div>
+					)}
 				</div>
 			</div>
 		</header>
-	)
+	);
 }

@@ -63,7 +63,7 @@ const Photos = ({ images = [], title = "CFS Facility" }) => {
         {/* Show all photos button */}
         <button
           onClick={() => setShowAllPhotos(true)}
-          className="absolute bottom-4 right-4 bg-green-800 text-white px-3 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm sm:text-base"
+          className="absolute bottom-4 right-4 bg-primary text-white px-3 py-2 rounded-lg shadow-lg flex items-center gap-2 text-sm sm:text-base"
         >
           <CameraIcon className="h-5 w-5" />
           Show all photos
@@ -72,12 +72,12 @@ const Photos = ({ images = [], title = "CFS Facility" }) => {
 
       {/* Fullscreen Modal */}
       {showAllPhotos && (
-        <div className="fixed inset-0 bg-white bg-opacity-95 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 bg-accent bg-opacity-95 z-50 flex items-center justify-center p-4 overflow-y-auto">
           <div className="max-w-6xl w-full">
             <div className="flex justify-end mb-2">
               <button
                 onClick={() => setShowAllPhotos(false)}
-                className="text-black hover:text-gray-300 p-2"
+                className="text-primary hover:text-light-primary p-2"
               >
                 <X className="h-8 w-8" />
               </button>
@@ -116,7 +116,7 @@ const Photos = ({ images = [], title = "CFS Facility" }) => {
               <button
                 onClick={() => setSelectedImage(Math.max(0, selectedImage - 1))}
                 disabled={selectedImage === 0}
-                className="px-4 py-2 bg-[#3C4D03] text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-primary text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Previous
               </button>
@@ -128,7 +128,7 @@ const Photos = ({ images = [], title = "CFS Facility" }) => {
                   setSelectedImage(Math.min(images.length - 1, selectedImage + 1))
                 }
                 disabled={selectedImage === images.length - 1}
-                className="px-4 py-2 bg-[#3C4D03] text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-primary text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>

@@ -1,6 +1,6 @@
 import { Check, BadgeHelp, Handshake, Dot, LogIn } from 'lucide-react';
 
-export default function RegistrationSuccess() {
+export default function RegistrationSuccess({ onGoToDashboard, userInfo }) {
     return (
         <div
             className="min-h-screen flex items-center justify-center bg-white"
@@ -24,6 +24,11 @@ export default function RegistrationSuccess() {
                     <p className="text-[#DCFCE7] mt-6 text-center">
                         Your journey with Green Ocean Logistics begins now
                     </p>
+                    {userInfo?.fullName && (
+                        <p className="text-white text-lg mt-4 text-center font-medium">
+                            Hello, {userInfo.fullName}!
+                        </p>
+                    )}
                 </div>
 
                 {/* Right Side */}
@@ -43,6 +48,11 @@ export default function RegistrationSuccess() {
                         <p className="text-gray-600 mt-4 pl-8">
                             You have successfully created your account and are now part of our logistics network.
                         </p>
+                        {userInfo?.email && (
+                            <p className="text-gray-600 mt-2 pl-8 text-sm">
+                                Account registered with: <span className="font-medium text-[#166534]">{userInfo.email}</span>
+                            </p>
+                        )}
                     </div>
 
                     {/* Status Card */}
@@ -76,14 +86,27 @@ export default function RegistrationSuccess() {
                                 </span>
                                 24/7 customer support access
                             </li>
+                            {userInfo?.documents && userInfo.documents.length > 0 && (
+                                <li className="flex items-center">
+                                    <span className="bg-[#166534] rounded-full p-1 mr-2 flex items-center justify-center">
+                                        <Check className="h-5 w-5 text-white" />
+                                    </span>
+                                    Documents uploaded and verified
+                                </li>
+                            )}
                         </ul>
                     </div>
-                    <button className="bg-[#1A5A3E] text-white flex items-center justify-center gap-2 py-3 w-full rounded-md mt-3 mb-2">
+                    
+                    <button 
+                        onClick={onGoToDashboard}
+                        className="bg-[#1A5A3E] text-white flex items-center justify-center gap-2 py-3 w-full rounded-md mt-3 mb-2 hover:bg-[#144A32] transition-colors"
+                    >
                         <LogIn />
-                        Go to Login
+                        Continue to Dashboard
                     </button>
-                    <p className="text-[#6B7280] text-center">
-                        Need help? <a className="text-red-700">Contact Support</a>
+                    
+                    <p className="text-[#6B7280] text-center text-sm">
+                        Need help? <a href="#" className="text-red-700 hover:underline">Contact Support</a>
                     </p>
                 </div>
             </div>

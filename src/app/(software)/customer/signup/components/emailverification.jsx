@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { MailCheck, RotateCw } from 'lucide-react';
 import {
     InputOTP,
@@ -7,7 +8,47 @@ import {
 } from "@/components/ui/input-otp"
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 
-export default function EmailVerificationPage() {
+export default function EmailVerificationPage({ email, onVerify, onResend, isLoading }) {
+    const [otp, setOtp] = useState('');
+    const [countdown, setCountdown] = useState(300); // 5 minutes in seconds
+    const [isResending, setIsResending] = useState(false);
+
+    // Countdown timer effect
+    React.useEffect(() => {
+        if (countdown > 0) {
+            const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [countdown]);
+
+    // Format countdown display
+    const formatTime = (seconds) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    // Handle OTP submission
+    const handleSubmit = () => {
+        if (otp.length === 6) {
+            onVerify(otp);
+        }
+    };
+
+    // Handle resend OTP
+    const handleResend = async () => {
+        setIsResending(true);
+        try {
+            await onResend();
+            setCountdown(300); // Reset countdown
+            setOtp(''); // Clear current OTP
+        } catch (error) {
+            console.error('Failed to resend OTP:', error);
+        } finally {
+            setIsResending(false);
+        }
+    };
+
     return (
         <div className="min-h-screen w-full flex flex-col bg-white">
             {/* Green Section - Fullscreen on mobile, left half on desktop */}
@@ -23,6 +64,7 @@ export default function EmailVerificationPage() {
                     </p>
                 </div>
             </div>
+            
             {/* Right Side - White Card, overlays on desktop */}
             <div className="w-full flex items-center justify-center py-10 lg:ml-[50vw]">
                 <div className="bg-white rounded-xl shadow-md p-4 sm:p-8 max-w-md w-full flex flex-col items-center justify-center">
@@ -31,10 +73,20 @@ export default function EmailVerificationPage() {
                     </div>
                     <h1 className="mt-2 text-2xl font-semibold text-black text-center">Verify Your Email</h1>
                     <p className="mt-2 text-[#4B5563] text-center">A verification code has been sent to your email:</p>
-                    <p className="text-[#166534] break-all text-center">your@email.com</p>
-                    <p className="text-[#374151] mt-5 text-center">Enter Verification Code :</p>
+                    <p className="text-[#166534] break-all text-center font-medium">{email || 'your@email.com'}</p>
+                    <p className="text-[#374151] mt-5 text-center">Enter Verification Code:</p>
 
-                    <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+                    <InputOTP 
+                        maxLength={6} 
+                        pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                        value={otp}
+                        onChange={(value) => setOtp(value)}
+                        onComplete={(value) => {
+                            if (value.length === 6) {
+                                onVerify(value);
+                            }
+                        }}
+                    >
                         <InputOTPGroup className="flex gap-x-3">
                             {Array.from({ length: 6 }).map((_, index) => (
                                 <InputOTPSlot
@@ -45,20 +97,38 @@ export default function EmailVerificationPage() {
                             ))}
                         </InputOTPGroup>
                     </InputOTP>
+                    
                     <div className="flex flex-col sm:flex-row justify-between items-center mt-10 w-full gap-4">
                         {/* Left: Refresh Code */}
-                        <div className="flex items-center">
-                            <RotateCw size={13} className="mr-1" />
-                            <h1 className="text-sm text-[#166534] font-semibold">Refresh Code</h1>
-                        </div>
+                        <button 
+                            onClick={handleResend}
+                            disabled={isResending || countdown > 0}
+                            className="flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <RotateCw size={13} className={`mr-1 ${isResending ? 'animate-spin' : ''}`} />
+                            <span className="text-sm text-[#166534] font-semibold">
+                                {isResending ? 'Sending...' : countdown > 0 ? `Resend in ${formatTime(countdown)}` : 'Resend Code'}
+                            </span>
+                        </button>
+                        
                         {/* Right: Verify Button */}
-                        <button className="bg-[#216C3D] text-white px-6 py-2 rounded-md">
-                            Verify
+                        <button 
+                            onClick={handleSubmit}
+                            disabled={otp.length !== 6 || isLoading}
+                            className="bg-[#216C3D] text-white px-6 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {isLoading ? 'Verifying...' : 'Verify'}
                         </button>
                     </div>
-                    <p className="text-[#6B7280] text-sm mt-4 text-center">Code expires in 05:00</p>
+                    
+                    <p className="text-[#6B7280] text-sm mt-4 text-center">
+                        Code expires in {formatTime(countdown)}
+                    </p>
+                    
                     <div className="bg-[#e8aeae26] mt-10 text-center p-3 rounded-md w-full">
-                        <p className="text-[#4B5563]">Didn't receive the code? Check your spam folder or try</p>
+                        <p className="text-[#4B5563] text-sm">
+                            Didn't receive the code? Check your spam folder or click resend above.
+                        </p>
                     </div>
                 </div>
             </div>

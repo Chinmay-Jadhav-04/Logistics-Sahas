@@ -73,7 +73,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
     return (
         <div className="w-full min-h-screen flex bg-[#F9FAFB]">
             <div className="bg-[#2E6F40] w-1/2 flex flex-col items-center justify-center px-10 ">
-                <img src="/rlogo.png" className="h-70 w-70 rounded-2xl shadow-black shadow-lg  mb-8" />
+                <img src="/bgimg.jpeg" className="h-70 w-70 rounded-2xl shadow-black shadow-lg  mb-8" />
                 <h1 className="text-white font-bold text-3xl mb-4 text-center">Welcome to Logistics</h1>
                 <p className="text-white text-center text-lg mb-8 max-w-md">
                     Streamline your logistics operations with our comprehensive management platform. Join thousands of businesses optimizing their supply chain.

@@ -62,7 +62,7 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 									icon={<CircleUserRound size={20} />}
 									iconPosition="right"
 									className="rounded-md"
-									onClick={() => router.push('/login')}
+									onClick={() => router.push('/customer/login')}
 								/>
 								<Button
 									title={'Sign Up'}
@@ -140,7 +140,7 @@ export default function HeaderLayout({ currentService, setCurrentService }) {
 								icon={<LogInIcon />}
 								iconPosition="right"
 								className="rounded-md"
-								onClick={() => router.push('/login')}
+								onClick={() => router.push('/customer/login')}
 							/>
 							<Button
 								title={'Sign Up'}

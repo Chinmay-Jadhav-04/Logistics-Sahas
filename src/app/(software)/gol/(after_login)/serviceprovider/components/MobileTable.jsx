@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, Edit, Shield, ShieldCheck, X, Check } from 'lucide-react';
+import { Search, Edit, Shield, ShieldCheck, X, Check, PackageOpen, Building, Truck, Castle, Anchor, Train } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import { useCollection } from '@/hooks/useCollection';
 import { useAuth } from '@/contexts/AuthContext';
@@ -77,17 +77,17 @@ export default function MobileServiceProviderList() {
   const getTypeIcon = (type) => {
     switch (type) {
       case 'CFS':
-        return '📦';
+        return <PackageOpen className="text-primary text-sm"/>;
       case 'ICD':
-        return '🏢';
+        return <Building className="text-primary text-sm"/>;
       case 'Transport':
-        return '🚛';
+        return <Truck className="text-primary text-sm"/>;
       case 'Warehouse':
-        return '🏪';
+        return <Castle className="text-primary text-sm"/>;
       case 'Port':
-        return '⚓';
+        return <Anchor className="text-primary text-sm"/>;
       default:
-        return '🏭';
+        return <Train className="text-primary text-sm "/>;
     }
   };
 
@@ -152,7 +152,7 @@ export default function MobileServiceProviderList() {
                       className={`flex items-center gap-1 px-3 py-1 rounded text-sm ${
                         provider.access === 'Allowed' 
                           ? 'bg-red-600 text-white hover:bg-red-700' 
-                          : 'bg-green-600 text-white hover:bg-green-700'
+                          : 'bg-light-primary text-white hover:bg-primary'
                       }`}
                       onClick={() => handleAccessToggle(provider.id, provider.access)}
                     >

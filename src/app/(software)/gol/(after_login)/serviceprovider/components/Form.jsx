@@ -166,7 +166,7 @@ export default function Form() {
           title={'Add Provider'} 
           icon={<Upload />} 
           iconPosition='right' 
-          className='rounded-xl bg-green-600 hover:bg-green-700' 
+          className='rounded-xl bg-light-primary hover:bg-primary' 
         />
       </div>
     </Dialog>

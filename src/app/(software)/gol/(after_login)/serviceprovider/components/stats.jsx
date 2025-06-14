@@ -1,3 +1,4 @@
+import { Ban, Check, Clock, NotebookText } from "lucide-react";
 import { useEffect, useState } from "react"
 
 export default function Stats({ providers = [] }) {
@@ -74,42 +75,42 @@ export default function Stats({ providers = [] }) {
         <div className="md:w-full w-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
             <div className="border bg-[var(--accent)] shadow-md shadow-foreground/40 rounded-lg p-6 grid gap-2 w-full">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-blue-600 text-sm">📋</span>
+                    <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                            <NotebookText className="text-primary text-sm"/>
                     </div>
-                    <h4 className="text-sm text-gray-600">Total Provider</h4>
+                    <h4 className="text-sm text-primary">Total Provider</h4>
                 </div>
-                <h1 className="text-3xl font-bold text-gray-800">{stats.total}</h1>
+                <h1 className="text-3xl font-bold text-primary">{stats.total}</h1>
             </div>
 
             <div className="border bg-[var(--accent)] shadow-md shadow-foreground/40 rounded-lg p-6 grid gap-2 w-full">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                        <span className="text-green-600 text-sm">✅</span>
+                    <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <Check className="text-primary text-sm" />
                     </div>
-                    <h4 className="text-sm text-gray-600">Access Granted</h4>
+                    <h4 className="text-sm text-primary">Access Granted</h4>
                 </div>
-                <h1 className="text-3xl font-bold text-green-600">{stats.granted}</h1>
+                <h1 className="text-3xl font-bold text-primary">{stats.granted}</h1>
             </div>
 
             <div className="border bg-[var(--accent)] shadow-md shadow-foreground/40 rounded-lg p-6 grid gap-2 w-full">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                        <span className="text-red-600 text-sm">🚫</span>
+                    <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <Ban className="text-primary text-sm"/>
                     </div>
-                    <h4 className="text-sm text-gray-600">Access Revoked</h4>
+                    <h4 className="text-sm text-primary">Access Revoked</h4>
                 </div>
-                <h1 className="text-3xl font-bold text-red-600">{stats.revoked}</h1>
+                <h1 className="text-3xl font-bold text-primary">{stats.revoked}</h1>
             </div>
 
             <div className="border bg-[var(--accent)] shadow-md shadow-foreground/40 rounded-lg p-6 grid gap-2 w-full">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <span className="text-purple-600 text-sm">🕒</span>
+                    <div className="w-8 h-8 bg-background rounded-lg flex items-center justify-center">
+                        <Clock className="text-primary text-sm"/>
                     </div>
-                    <h4 className="text-sm text-gray-600">Last Access Update</h4>
+                    <h4 className="text-sm text-primary">Last Access Update</h4>
                 </div>
-                <h1 className="text-xl font-bold text-purple-600">{stats.lastUpdate}</h1>
+                <h1 className="text-xl font-bold text-primary">{stats.lastUpdate}</h1>
             </div>
         </div>
     )

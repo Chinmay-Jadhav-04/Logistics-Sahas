@@ -11,15 +11,13 @@ import { toast } from "sonner";
 
 export default function Form() {
   const { user } = useAuth();
-  const { createItem, mutation } = useCollection('gol_transportation-services');
+  const { createItem, mutation } = useCollection('gol_service-providers');
 
   const [formData, setFormData] = useState({
-    orderId: '',
-    vehicleNo: '',
-    driverName: '',
-    phoneNumber: '',
-    route: '',
-    status: 'Pending'
+    providerName: '',
+    type: '',
+    location: '',
+    access: 'Not Allowed'
   });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,29 +31,26 @@ export default function Form() {
 
   const handleReset = () => {
     setFormData({
-      orderId: '',
-      vehicleNo: '',
-      driverName: '',
-      phoneNumber: '',
-      route: '',
-      status: 'Pending'
+      providerName: '',
+      type: '',
+      location: '',
+      access: 'Not Allowed'
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Generate Order ID if not provided
-    const orderData = {
+    const providerData = {
       ...formData,
-      orderId: formData.orderId || `TRX${Date.now().toString().slice(-3)}`,
-      createdBy: user.id
+      createdBy: user.id,
+      createdAt: new Date().toISOString()
     };
 
     try {
-      console.log('Transportation Service Submitted:', orderData);
-      await createItem(orderData);
-      toast.success('Created new transportation service');
+      console.log('Service Provider Submitted:', providerData);
+      await createItem(providerData);
+      toast.success('Created new service provider');
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -66,11 +61,17 @@ export default function Form() {
     }
   };
 
-  const statusOptions = [
-    { value: 'Pending', label: 'Pending' },
-    { value: 'On Route', label: 'On Route' },
-    { value: 'Delivered', label: 'Delivered' },
-    { value: 'Cancelled', label: 'Cancelled' }
+  const typeOptions = [
+    { value: 'CFS', label: 'CFS' },
+    { value: 'ICD', label: 'ICD' },
+    { value: 'Transport', label: 'Transport' },
+    { value: 'Warehouse', label: 'Warehouse' },
+    { value: 'Port', label: 'Port' }
+  ];
+
+  const accessOptions = [
+    { value: 'Allowed', label: 'Allowed' },
+    { value: 'Not Allowed', label: 'Not Allowed' }
   ];
 
   return (
@@ -78,85 +79,79 @@ export default function Form() {
       open={isOpen}
       onOpenChange={setIsOpen}
       trigger={
-        <Button
-          title={'CREATE NEW'}
-          icon={<Plus className='w-5 h-5' />}
-          iconPosition='right'
-          className='rounded-md bg-green-600 hover:bg-green-700'
-          textSize='text-sm'
-        />
+        <>
+          <div className="hidden md:block">
+            <Button
+              title={'ADD NEW PROVIDER'}
+              icon={<Plus className='w-5 h-5' />}
+              iconPosition='right'
+              className='rounded-md bg-green-600 hover:bg-green-700'
+              textSize='text-sm'
+            />
+          </div>
+          <div className="md:hidden">
+            <Button
+              title={'ADD'}
+              icon={<Plus className='w-4 h-4' />}
+              iconPosition='right'
+              className='rounded-md bg-green-600 hover:bg-green-700 text-xs px-3 py-2'
+              textSize='text-xs'
+            />
+          </div>
+        </>
       }
-      title="Create New Transportation Service"
+      title="Add New Service Provider"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-[60dvw]">
         <div className='flex flex-col gap-2'>
-          <Label title={'Order ID'} />
+          <Label title={'Provider Name'} />
           <Input
             type="text"
-            name="orderId"
-            value={formData.orderId}
+            name="providerName"
+            value={formData.providerName}
             onChange={handleChange}
-            placeholder="e.g., TRX001"
+            placeholder="e.g., Swift Container Lines"
             className='bg-accent'
+            required
           />
         </div>
 
         <div className='flex flex-col gap-2'>
-          <Label title={'Vehicle Number'} />
-          <Input
-            type="text"
-            name="vehicleNo"
-            value={formData.vehicleNo}
-            onChange={handleChange}
-            placeholder="e.g., MH12AB1234"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'Driver Name'} />
-          <Input
-            type="text"
-            name="driverName"
-            value={formData.driverName}
-            onChange={handleChange}
-            placeholder="Enter driver name"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'Phone Number'} />
-          <Input
-            type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            placeholder="+91-1234567890"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'Route'} />
-          <Input
-            type="text"
-            name="route"
-            value={formData.route}
-            onChange={handleChange}
-            placeholder="e.g., Mumbai → Delhi"
-            className='bg-accent'
-          />
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <Label title={'Status'} />
+          <Label title={'Type'} />
           <Select 
-            value={formData.status} 
-            onValueChange={(value) => setFormData({ ...formData, status: value })} 
-            placeholder='Select Status'
+            value={formData.type} 
+            onValueChange={(value) => setFormData({ ...formData, type: value })} 
+            placeholder='Select Type'
           >
-            {statusOptions.map(option => (
+            {typeOptions.map(option => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <Label title={'Location'} />
+          <Input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="e.g., Mumbai"
+            className='bg-accent'
+            required
+          />
+        </div>
+
+        <div className='flex flex-col gap-2'>
+          <Label title={'Access'} />
+          <Select 
+            value={formData.access} 
+            onValueChange={(value) => setFormData({ ...formData, access: value })} 
+            placeholder='Select Access'
+          >
+            {accessOptions.map(option => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}
               </SelectItem>
@@ -168,7 +163,7 @@ export default function Form() {
       <div className="mt-6">
         <Button 
           onClick={handleSubmit} 
-          title={'Create Service'} 
+          title={'Add Provider'} 
           icon={<Upload />} 
           iconPosition='right' 
           className='rounded-xl bg-green-600 hover:bg-green-700' 

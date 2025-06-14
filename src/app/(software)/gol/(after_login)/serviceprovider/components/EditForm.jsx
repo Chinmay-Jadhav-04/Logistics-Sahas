@@ -10,23 +10,19 @@ import { toast } from "sonner";
 
 export default function EditForm({
 	info = {
-		orderId: '',
-		vehicleNo: '',
-		driverName: '',
-		phoneNumber: '',
-		route: '',
-		status: 'Pending'
+		providerName: '',
+		type: '',
+		location: '',
+		access: 'Not Allowed'
 	}
 }) {
-	const { updateItem, mutation } = useCollection('gol_transportation-services');
+	const { updateItem, mutation } = useCollection('gol_service-providers');
 	const [formData, setFormData] = useState({
 		id: info.id,
-		orderId: info.orderId,
-		vehicleNo: info.vehicleNo,
-		driverName: info.driverName,
-		phoneNumber: info.phoneNumber,
-		route: info.route,
-		status: info.status,
+		providerName: info.providerName,
+		type: info.type,
+		location: info.location,
+		access: info.access,
 	});
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -40,28 +36,24 @@ export default function EditForm({
 
 	const handleReset = () => {
 		setFormData({
-			orderId: info.orderId,
-			vehicleNo: info.vehicleNo,
-			driverName: info.driverName,
-			phoneNumber: info.phoneNumber,
-			route: info.route,
-			status: info.status,
+			providerName: info.providerName,
+			type: info.type,
+			location: info.location,
+			access: info.access,
 		});
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Transportation Service Updated:', formData);
+		console.log('Service Provider Updated:', formData);
 		try {
 			await updateItem(formData.id, {
-				orderId: formData.orderId,
-				vehicleNo: formData.vehicleNo,
-				driverName: formData.driverName,
-				phoneNumber: formData.phoneNumber,
-				route: formData.route,
-				status: formData.status,
+				providerName: formData.providerName,
+				type: formData.type,
+				location: formData.location,
+				access: formData.access,
 			});
-			toast.success('Updated the transportation service');
+			toast.success('Updated the service provider');
 		} catch (error) {
 			console.log(error)
 			toast.error(error.message);
@@ -72,11 +64,17 @@ export default function EditForm({
 		}
 	};
 
-	const statusOptions = [
-		{ value: 'Pending', label: 'Pending' },
-		{ value: 'On Route', label: 'On Route' },
-		{ value: 'Delivered', label: 'Delivered' },
-		{ value: 'Cancelled', label: 'Cancelled' }
+	const typeOptions = [
+		{ value: 'CFS', label: 'CFS' },
+		{ value: 'ICD', label: 'ICD' },
+		{ value: 'Transport', label: 'Transport' },
+		{ value: 'Warehouse', label: 'Warehouse' },
+		{ value: 'Port', label: 'Port' }
+	];
+
+	const accessOptions = [
+		{ value: 'Allowed', label: 'Allowed' },
+		{ value: 'Not Allowed', label: 'Not Allowed' }
 	];
 
 	return (
@@ -89,78 +87,57 @@ export default function EditForm({
 					className="cursor-pointer text-primary hover:text-primary/80"
 				/>
 			}
-			title="Edit Transportation Service"
+			title="Edit Service Provider"
 			className='bg-[var(--accent)] cursor-pointer'
 		>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-[60dvw]">
 				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Order ID'} />
+					<Label title={'Provider Name'} />
 					<Input
 						type="text"
-						name="orderId"
-						value={formData.orderId}
+						name="providerName"
+						value={formData.providerName}
 						onChange={handleChange}
-						placeholder="Enter Order ID"
+						placeholder="Enter Provider Name"
 						className='bg-accent'
 					/>
 				</div>
 
 				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Vehicle Number'} />
-					<Input
-						type="text"
-						name="vehicleNo"
-						value={formData.vehicleNo}
-						onChange={handleChange}
-						placeholder="Enter Vehicle Number"
-						className='bg-accent'
-					/>
-				</div>
-
-				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Driver Name'} />
-					<Input
-						type="text"
-						name="driverName"
-						value={formData.driverName}
-						onChange={handleChange}
-						placeholder="Enter Driver Name"
-						className='bg-accent'
-					/>
-				</div>
-
-				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Phone Number'} />
-					<Input
-						type="tel"
-						name="phoneNumber"
-						value={formData.phoneNumber}
-						onChange={handleChange}
-						placeholder="Enter Phone Number"
-						className='bg-accent'
-					/>
-				</div>
-
-				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Route'} />
-					<Input
-						type="text"
-						name="route"
-						value={formData.route}
-						onChange={handleChange}
-						placeholder="Enter Route"
-						className='bg-accent'
-					/>
-				</div>
-
-				<div className='flex flex-col items-start gap-2'>
-					<Label title={'Status'} />
+					<Label title={'Type'} />
 					<Select 
-						value={formData.status} 
-						onValueChange={(value) => setFormData({ ...formData, status: value })} 
-						placeholder='Select Status'
+						value={formData.type} 
+						onValueChange={(value) => setFormData({ ...formData, type: value })} 
+						placeholder='Select Type'
 					>
-						{statusOptions.map(option => (
+						{typeOptions.map(option => (
+							<SelectItem key={option.value} value={option.value}>
+								{option.label}
+							</SelectItem>
+						))}
+					</Select>
+				</div>
+
+				<div className='flex flex-col items-start gap-2'>
+					<Label title={'Location'} />
+					<Input
+						type="text"
+						name="location"
+						value={formData.location}
+						onChange={handleChange}
+						placeholder="Enter Location"
+						className='bg-accent'
+					/>
+				</div>
+
+				<div className='flex flex-col items-start gap-2'>
+					<Label title={'Access'} />
+					<Select 
+						value={formData.access} 
+						onValueChange={(value) => setFormData({ ...formData, access: value })} 
+						placeholder='Select Access'
+					>
+						{accessOptions.map(option => (
 							<SelectItem key={option.value} value={option.value}>
 								{option.label}
 							</SelectItem>
@@ -172,7 +149,7 @@ export default function EditForm({
 			<div className="mt-6">
 				<Button 
 					onClick={handleSubmit} 
-					title="Update Transportation Service" 
+					title="Update Service Provider" 
 					icon={<Upload />} 
 					iconPosition="right" 
 					className="rounded-xl bg-blue-600 hover:bg-blue-700" 
@@ -180,5 +157,4 @@ export default function EditForm({
 			</div>
 		</Dialog>
 	)
-	
 }

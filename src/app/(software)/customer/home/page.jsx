@@ -23,6 +23,8 @@ export default function ClientHomePage() {
 	const { data: providers } = useCollection('service_provider', {
 		expand: 'service'
 	});
+
+	
 	const [currentService, setCurrentService] = useState('CFS');
 	const [filteredServices, setFilteredServices] = useState([]);
 	const [filter, setFilter] = useState('');

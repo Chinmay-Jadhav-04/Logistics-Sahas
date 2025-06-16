@@ -179,3 +179,89 @@ export const ServiceProviders = [
 		description: "Well-connected CFS with extensive storage space and specialized handling equipment.",
 	}
 ];
+
+
+export const ThreePLServiceProviders = [
+	{
+		id: 'gfs',
+		serviceId: 'cfs',
+		images: [
+			{
+				src: '/CFS/global-freight-logistics/1.jpg',
+				alt: 'Main',
+			}, {
+				src: '/CFS/global-freight-logistics/2.jpg',
+				alt: 'Main 2',
+			}, {
+				src: '/CFS/global-freight-logistics/3.jpg',
+				alt: 'Main 3',
+			}, {
+				src: '/CFS/global-freight-logistics/4.jpg',
+				alt: 'Main 4',
+			}, {
+				src: '/CFS/global-freight-logistics/5.jpg',
+				alt: 'Main 5',
+			},
+		],
+		title: 'Global Freight Logistics Limited',
+		location: 'Mumbai Port, India',
+		rating: 4.8,
+		tags: ['Packing', 'Storage', 'Customs'],
+		description: 'Global Freight Logistics Limited is a privately owned independent freight forwarder.  Trading since 2016, we provide customer led international logistics solutions for an ever growing global client base.'
+	},
+	{
+		id: 'mumbai-central-terminal',
+		serviceId: 'cfs',
+		images: [
+			{
+				src: '/CFS/mumbai-central-terminal/1.jpg',
+				alt: 'Main',
+			}, {
+				src: '/CFS/mumbai-central-terminal/2.jpg',
+				alt: 'Main 2',
+			}, {
+				src: '/CFS/mumbai-central-terminal/3.jpg',
+				alt: 'Main 3',
+			}, {
+				src: '/CFS/mumbai-central-terminal/4.jpg',
+				alt: 'Main 4',
+			}, {
+				src: '/CFS/mumbai-central-terminal/5.jpg',
+				alt: 'Main 5',
+			},
+		],
+		title: 'Mumbai CFS Terminal',
+		location: "Nhava Sheva, Mumbai, Maharashtra",
+		rating: 4.5,
+		tags: ['Packing', 'Storage', 'Customs'],
+		description: "State-of-the-art Container Freight Station with modern facilities and efficient clearance process.",
+	},
+	{
+		id: 'chennai-cfs',
+		serviceId: 'cfs',
+		images: [
+			{
+				src: '/CFS/chennai-cfs/1.jpg',
+				alt: 'Main',
+			}, {
+				src: '/CFS/chennai-cfs/2.jpg',
+				alt: 'Main 2',
+			}, {
+				src: '/CFS/chennai-cfs/3.jpg',
+				alt: 'Main 3',
+			}, {
+				src: '/CFS/chennai-cfs/4.jpg',
+				alt: 'Main 4',
+			}, {
+				src: '/CFS/chennai-cfs/5.jpg',
+				alt: 'Main 5',
+			},
+		],
+		title: "Chennai Port CFS",
+		location: "Chennai Port, Tamil Nadu",
+		rating: 4.2,
+		tags: ['Packing', 'Storage', 'Customs'],
+		description: "Well-connected CFS with extensive storage space and specialized handling equipment.",
+	}
+];
+

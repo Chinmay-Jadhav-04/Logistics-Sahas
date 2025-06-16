@@ -1,9 +1,11 @@
-// app/contact/page.tsx
 'use client';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Footer from '../components/footer/page';
 
 export default function ContactUs() {
+    const router = useRouter();
+
     return (
         <section className="min-h-screen bg-gradient-to-br from-[#e8f3eb] to-[#d4e6d2] flex flex-col items-center overflow-x-hidden">
             {/* Hero */}
@@ -15,6 +17,14 @@ export default function ContactUs() {
                     className="object-cover brightness-75"
                     priority
                 />
+                {/* Back Button */}
+                <button
+                    onClick={() => router.back()}
+                    className="absolute top-6 left-6 z-20 bg-white/80 hover:bg-white text-[#2E6F40] px-4 py-2 rounded-lg font-semibold shadow-md transition"
+                >
+                    ← Back
+                </button>
+                {/* Overlay Text */}
                 <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center z-10">
                     <h1 className="text-white text-5xl font-extrabold drop-shadow-lg">Contact Us</h1>
                     <p className="text-white/90 text-lg mt-3">We’re here to help. Reach out anytime.</p>

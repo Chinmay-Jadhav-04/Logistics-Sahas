@@ -1,10 +1,21 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import Footer from '../components/footer/page';
 
 export default function AboutUs() {
+    const router = useRouter();
+
     return (
         <section className="relative min-h-screen w-full bg-gradient-to-br from-[#e8f3eb] to-[#d4e6d2] flex flex-col items-center overflow-x-hidden">
+            {/* Back Button */}
+            <button
+                onClick={() => router.back()}
+                className="absolute top-6 left-6 z-50 bg-white text-[#2E6F40] px-4 py-2 rounded-full shadow hover:bg-[#2E6F40] hover:text-white transition duration-300"
+            >
+                ← Back
+            </button>
+
             {/* Hero Section */}
             <div className="relative w-full h-[50vh] flex items-center justify-center overflow-hidden">
                 <Image

@@ -52,7 +52,7 @@ export default function Footer() {
 
             {/* Bottom Bar */}
             <div className="border-t border-green-800 py-4 text-center text-md font-semibold text-[#2E6F40]">
-                © 2024 SKZ TECH. All rights reserved.
+                © 2025 SKZ TECH. All rights reserved.
             </div>
         </footer>
     );

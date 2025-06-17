@@ -14,7 +14,7 @@ export default function MobileServiceProviderList() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProviders, setFilteredProviders] = useState([]);
 
-  // Sample data for display when no real data exists
+
   const sampleProviders = [
     {
       id: 1,

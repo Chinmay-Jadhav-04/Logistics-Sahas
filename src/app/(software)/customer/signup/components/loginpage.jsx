@@ -19,7 +19,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
             ...prev,
             [field]: value
         }));
-        // Clear error when user starts typing
+        
         if (errors[field]) {
             setErrors(prev => ({
                 ...prev,
@@ -102,8 +102,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                     </div>
                     <h1 className="font-extrabold text-2xl sm:text-3xl text-center mb-2 text-[#1A2E22]">Create Your Account</h1>
                     <p className="text-gray-600 text-center mb-6">Join our logistics platform and start optimizing your operations</p>
-                    
-                    {/* Full Name */}
+                  
                     <div className="w-full mb-3">
                         <label className="flex items-center text-gray-500 text-sm font-medium mb-1">
                             <UserRound size={16} className="mr-2" /> Full Name
@@ -119,7 +118,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                         {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
                     </div>
                     
-                    {/* Phone Number */}
+                  
                     <div className="w-full mb-3">
                         <label className="flex items-center text-gray-500 text-sm font-medium mb-1">
                             <Phone size={16} className="mr-2" /> Phone Number
@@ -135,7 +134,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                         {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                     </div>
                     
-                    {/* Email */}
+                 
                     <div className="w-full mb-3">
                         <label className="flex items-center text-gray-500 text-sm font-medium mb-1">
                             <Mail size={16} className="mr-2" /> Email Address
@@ -151,7 +150,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                     </div>
                     
-                    {/* Password */}
+
                     <div className="w-full mb-1">
                         <label className="flex items-center text-gray-500 text-sm font-medium mb-1">
                             <Lock size={16} className="mr-2" /> Password
@@ -168,7 +167,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                     </div>
                     <p className="text-xs text-gray-500 mb-3">Must be at least 8 characters with uppercase, lowercase, and numbers</p>
                     
-                    {/* Terms */}
+    
                     <label className="flex items-start space-x-2 mb-4 w-full">
                         <input 
                             type="checkbox" 
@@ -186,7 +185,7 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                     </label>
                     {errors.termsAccepted && <p className="text-red-500 text-xs mb-2 w-full">{errors.termsAccepted}</p>}
                     
-                    {/* Next Button */}
+   
                     <button 
                         type="submit"
                         disabled={isLoading}
@@ -204,20 +203,20 @@ export default function RegistrationLoginPage({ onSubmit, formData, isLoading })
                         )}
                     </button>
                     
-                    {/* Sign In */}
+               
                     <p className="mt-6 text-center text-gray-700 text-sm">
                         Already have an account?
                         <a href="#" className="text-blue-600 ml-1 font-medium hover:underline">Sign In</a>
                     </p>
                     
-                    {/* Divider */}
+           
                     <div className="flex items-center w-full my-6">
                         <div className="flex-grow border-t border-gray-300"></div>
                         <span className="mx-3 text-gray-400 text-sm">Or continue with</span>
                         <div className="flex-grow border-t border-gray-300"></div>
                     </div>
                     
-                    {/* Google Button */}
+               
                     <button 
                         type="button"
                         disabled={isLoading}

@@ -20,7 +20,7 @@ export default function ServiceProviderPage() {
 		setTitle('Service Provider')
 	}, [setTitle]);
 
-	// Sample data for when no real data exists (matching the UI)
+
 	const sampleProviders = [
 		{
 			id: 1,
@@ -67,7 +67,7 @@ export default function ServiceProviderPage() {
 
 	return (
 		<section className="space-y-6">
-			{/* Header Section */}
+		
 			<div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
 				<div>
 					<h1 className="text-2xl font-bold text-primary">Service Provider</h1>
@@ -77,7 +77,7 @@ export default function ServiceProviderPage() {
 				</div>
 				
 				<div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-					{/* Search Bar */}
+				
 					<div className="relative">
 						<Input
 							type="text"
@@ -87,7 +87,6 @@ export default function ServiceProviderPage() {
 						<Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 					</div>
 					
-					{/* View All Providers Button */}
 					<Button
 						title="View All Providers"
 						icon={<Eye size={18} />}
@@ -97,22 +96,21 @@ export default function ServiceProviderPage() {
 				</div>
 			</div>
 
-			{/* Stats Section */}
+		
 			<Stats providers={displayData} />
 
-			{/* Add New Provider Button - Mobile/Desktop Responsive */}
+		
 			<div className="flex justify-end">
 				<Form />
 			</div>
 
-			{/* Main Table Section */}
 			{isMobile ? (
 				<MobileTable />
 			) : (
 				<Table />
 			)}
 
-			{/* Footer Info */}
+		
 			{!data?.length && (
 				<div className="text-center py-4">
 					<p className="text-sm text-light-primary">

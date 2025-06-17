@@ -14,7 +14,7 @@ export default function Stats({ providers = [] }) {
         let granted = 0, revoked = 0;
 
         if (providers.length === 0) {
-            // Default sample data when no providers exist
+         
             setStats({
                 total: 120,
                 granted: 8,
@@ -29,7 +29,7 @@ export default function Stats({ providers = [] }) {
             else if (provider.access === 'Not Allowed') revoked++;
         });
 
-        // Get the most recent update time
+  
         const mostRecentUpdate = providers.reduce((latest, provider) => {
             const providerUpdate = provider.updatedAt || provider.createdAt;
             if (!providerUpdate) return latest;
@@ -38,7 +38,7 @@ export default function Stats({ providers = [] }) {
             return updateTime > latest ? updateTime : latest;
         }, new Date(0));
 
-        // Format the last update time
+     
         const formatLastUpdate = (date) => {
             if (date.getTime() === 0) return 'N/A';
             

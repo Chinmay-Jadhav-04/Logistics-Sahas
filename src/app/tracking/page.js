@@ -76,7 +76,7 @@ const TrackingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Back Button */}
+
       <button 
         onClick={() => window.history.back()}
         className="flex items-center gap-2 mb-6 text-foreground hover:text-primary transition-colors"
@@ -85,7 +85,7 @@ const TrackingPage = () => {
         <span className="font-medium">Back</span>
       </button>
 
-      {/* Header Section */}
+
       <div className="bg-primary text-white p-8 rounded-t-lg">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-2">Track Your Shipment</h1>
@@ -93,7 +93,7 @@ const TrackingPage = () => {
         </div>
       </div>
 
-      {/* Input Form */}
+
       <div className="bg-accent p-6 shadow-lg">
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
@@ -143,10 +143,10 @@ const TrackingPage = () => {
         )}
       </div>
 
-      {/* Shipment Details */}
+
       {shipmentData && (
         <div className="mt-6 space-y-6">
-          {/* Shipment Details Card */}
+     
           <div className="bg-accent rounded-lg shadow-lg p-6">
             <div className="flex items-center gap-2 mb-4">
               <Package className="w-6 h-6 text-primary" />
@@ -188,7 +188,7 @@ const TrackingPage = () => {
             </div>
           </div>
 
-          {/* Shipment Timeline */}
+ 
           <div className="bg-accent rounded-lg shadow-lg p-6">
             <div className="flex items-center gap-2 mb-6">
               <MapPin className="w-6 h-6 text-primary" />
@@ -222,8 +222,7 @@ const TrackingPage = () => {
               ))}
             </div>
 
-            {/* ETA Information */}
-            <div className="mt-8 p-4 bg-accent rounded-lg border-l-4 border-primary">
+            <div className="mt-8 p-4 bg-background rounded-lg border-l-4 border-primary">
               <div className="flex items-center gap-2 mb-2">
                 <Clock className="w-5 h-5 text-primary" />
                 <span className="font-semibold text-foreground">ETA: {shipmentData.eta}</span>

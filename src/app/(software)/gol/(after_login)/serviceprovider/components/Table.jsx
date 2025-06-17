@@ -14,7 +14,7 @@ export default function Table() {
 	const { user } = useAuth();
 	const [searchQuery, setSearchQuery] = useState('');
 
-	// Sample data for when no real data exists (matching the UI)
+	
 	const sampleProviders = [
 		{
 			id: 1,
@@ -158,7 +158,7 @@ export default function Table() {
 		}
 	];
 
-	// Use mobile table for mobile devices
+	
 	if (useIsMobile()) {
 		return <MobileTable />;
 	}

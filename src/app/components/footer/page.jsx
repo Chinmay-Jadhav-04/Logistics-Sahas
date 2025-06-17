@@ -1,3 +1,7 @@
+'use client';
+
+import Link from 'next/link';
+
 export default function Footer() {
     return (
         <footer>
@@ -7,9 +11,11 @@ export default function Footer() {
                 <p className="text-gray-300 mt-3 max-w-xl">
                     Have questions about our services? Our expert team is here to help you with any inquiries.
                 </p>
-                <button className="text-[#2E6F40] bg-white py-1.5 px-4 mt-4 rounded-md">
-                    Contact Us
-                </button>
+                <Link href="/contact">
+                    <button className="text-[#2E6F40] bg-white py-1.5 px-4 mt-4 rounded-md">
+                        Contact Us
+                    </button>
+                </Link>
             </div>
 
             {/* Footer Links */}

@@ -243,26 +243,6 @@ const ServicesPage = () => {
             </div>
           </div>
         </section>
-
-        
-        <section className="py-16 px-4" style={{ background: 'var(--primary)' }}>
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--background)' }}>
-              Ready to Optimize Your Logistics?
-            </h2>
-            <p className="text-xl mb-8" style={{ color: 'var(--accent)' }}>
-              Get started with our comprehensive logistics solutions today and experience the difference.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="py-4 px-8 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-lg" style={{ background: 'var(--background)', color: 'var(--primary)' }}>
-                Get Quote
-              </button>
-              <button className="py-4 px-8 rounded-lg font-semibold text-lg border-2 transition-all duration-300 hover:shadow-lg" style={{ borderColor: 'var(--background)', color: 'var(--background)', background: 'transparent' }}>
-                Contact Us
-              </button>
-            </div>
-          </div>
-        </section>
       </main>
 
       <Footer />

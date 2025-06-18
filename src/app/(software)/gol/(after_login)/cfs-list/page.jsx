@@ -191,7 +191,7 @@ export default function ViewDetails({ id }) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <button
               onClick={handleGoBack}
-              className="flex items-center bg-[#2E6F40] px-4 py-2 rounded-lg text-white hover:text-[var(--foreground)] transition-colors"
+              className="flex items-center bg-primary px-4 py-2 rounded-lg text-white hover:text-[var(--foreground)] transition-colors"
             >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back

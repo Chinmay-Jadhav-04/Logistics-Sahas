@@ -57,7 +57,7 @@ const ViewDetails = () => {
       <div className="flex flex-col items-center justify-center min-h-screen text-center">
         <h2 className="text-2xl font-bold text-foreground mb-4">User Not Found</h2>
         <p className="text-foreground mb-8">The user you're looking for doesn't exist.</p>
-       <button onClick={() => router.back()} className="flex border rounded-lg px-10 py-4 text-sm font-medium bg-green-600 hover:bg-green-700 text-white">
+       <button onClick={() => router.back()} className="flex border rounded-lg px-10 py-4 text-sm font-medium bg-primary hover:bg-light-primary text-white">
         Go Back
        </button>
 

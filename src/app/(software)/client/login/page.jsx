@@ -50,9 +50,9 @@ export default function LoginPage() {
 			<div className="absolute -z-[1] top-0 left-0 w-full min-h-screen bg-black/60"></div>
 			<div className="bg-white/40 backdrop-blur-md shadow-xl rounded-2xl p-8 w-full max-w-md">
 				<div className="text-center mb-6">
-					<div className="text-sm font-bold text-green-700">Logo</div>
-					<h2 className="text-2xl font-semibold text-green-800 mt-2">Welcome to Green Ocean</h2>
-					<p className="text-sm text-gray-500 mt-1">Login to Your Account</p>
+					<div className="text-sm font-bold text-black">Logo</div>
+					<h2 className="text-2xl font-semibold text-black mt-2">Welcome to Green Ocean</h2>
+					<p className="text-sm text-black mt-1">Login to Your Account</p>
 				</div>
 
 				<form action="" onSubmit={handleLogin} className="space-y-5">
@@ -88,10 +88,10 @@ export default function LoginPage() {
 							/>
 							<Label>Remember Me</Label>
 						</div>
-						<a href="" className="text-red-500 hover:underline">Forget Password?</a>
+						<a href="" className="text-primary hover:underline">Forget Password?</a>
 					</div>
 
-					<Button type='submit' className='w-full bg-green-700 hover:bg-green-800 text-white'><ArrowRightToLine />Login</Button>
+					<Button type='submit' className='w-full bg-primary hover:bg-blue-800 text-white'><ArrowRightToLine />Login</Button>
 				</form>
 
 				<div className="flex items-center my-4">
@@ -111,12 +111,12 @@ export default function LoginPage() {
 
 				<p className="text-center text-sm mt-4">
 					Don't have an account?{""}
-					<a href="" className="text-green-700 font-semibold hover:underline">Sign Up</a>
+					<a href="" className="text-blue-700 font-semibold hover:underline">Sign Up</a>
 				</p>
 
-				<p className="text-center text-xs text-gray-700 mt-2">
+				<p className="text-center text-xs text-black mt-2">
 					Need Help?
-					<a href="mailto:support@greenlogistics.com" className="text-green-600 hover:underline">support@greenlogistics.com</a>
+					<a href="mailto:support@greenlogistics.com" className="text-blue-600 hover:underline">support@greenlogistics.com</a>
 				</p>
 			</div>
 		</div>

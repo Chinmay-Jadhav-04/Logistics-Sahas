@@ -9,14 +9,14 @@ export default function GreenCard() {
     ];
 
     return (
-        <section className="text-center bg-[#EFFFF1] py-16 mt-10">
-            <h1 className="text-[#3C4D03] font-bold text-2xl sm:text-3xl">We Have Everything</h1>
-            <p className="mt-4  mr-10 ml-15 sm:text-xl text-[#3C4D03]">Comprehensive logistics solutions for all your shipping needs.</p>
+        <section className="text-center bg-accent py-16 mt-10">
+            <h1 className="text-primary font-bold text-2xl sm:text-3xl">We Have Everything</h1>
+            <p className="mt-4  mr-10 ml-15 sm:text-xl text-light-primary">Comprehensive logistics solutions for all your shipping needs.</p>
             <div className="flex justify-center gap-8 flex-wrap mt-10">
                 {cards.map((card, index) => (
                     <div
                         key={index}
-                        className="bg-[#2E6F40] text-white w-70 p-6 rounded-lg shadow-md flex flex-col items-center hover:scale-105 transition-transform duration-300"
+                        className="bg-primary text-white w-70 p-6 rounded-lg shadow-md flex flex-col items-center hover:scale-105 transition-transform duration-300"
                     >
                         <div>{card.icon}</div>
                         <h2 className="font-semibold text-lg mt-4">{card.label}</h2>

@@ -19,29 +19,29 @@ export default function Home() {
     { no: "150K+", label: "Satisfied Customers" },
   ];
   return (
-    <div className="bg-[#effff1]">
+    <div className="bg-white">
       <HeroPage />
       <WhiteCard />
       <Packages />
-      <section className="px-6 sm:px-20 py-16 bg-white mt-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#1D591F] mb-10 text-center">
+      <section className="px-6 sm:px-20 py-16 bg-accent mt-20">
+        <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-10 text-center">
           News & Updates
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* News Cards */}
           <div className="md:col-span-2 space-y-8">
             {/* Card 1 */}
-            <div className="bg-[#effff1] rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+            <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
               <img
                 src="https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg"
                 alt="Singapore Logistics Hub"
                 className="w-full h-56 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#2E6F40]">
+                <h3 className="text-xl font-semibold text-black">
                   New Hub Opened in Singapore
                 </h3>
-                <p className="mt-2 text-gray-700">
+                <p className="mt-2 text-black">
                   We’ve officially launched our new logistics hub in Singapore
                   to better serve customers in Southeast Asia. This hub
                   increases our regional delivery capacity by 40%.
@@ -52,17 +52,17 @@ export default function Home() {
               </div>
             </div>
             {/* Card 2 */}
-            <div className="bg-[#effff1] rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+            <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
               <img
                 src="https://images.pexels.com/photos/221047/pexels-photo-221047.jpeg"
                 alt="Eco-Friendly Packaging"
                 className="w-full h-56 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#2E6F40]">
+                <h3 className="text-xl font-semibold text-black">
                   CFS Launches Eco-Friendly Packaging
                 </h3>
-                <p className="mt-2 text-gray-700">
+                <p className="mt-2 text-black">
                   In our mission to reduce carbon footprint, CFS is introducing
                   recyclable, biodegradable packaging materials across all
                   services globally.
@@ -73,17 +73,17 @@ export default function Home() {
               </div>
             </div>
             {/* Card 3 */}
-            <div className="bg-[#effff1] rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+            <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
               <img
                 src="https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg"
                 alt="24/7 Customer Support"
                 className="w-full h-56 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#2E6F40]">
+                <h3 className="text-xl font-semibold text-black">
                   24/7 Customer Service Now Available
                 </h3>
-                <p className="mt-2 text-gray-700">
+                <p className="mt-2 text-black">
                   You spoke, we listened! Our support team is now available
                   around the clock to assist you with tracking, quotes, and
                   service inquiries.
@@ -95,8 +95,8 @@ export default function Home() {
             </div>
           </div>
           {/* Updates Sidebar */}
-          <aside className="bg-[#f4fdf6] p-6 rounded-xl shadow-sm">
-            <h4 className="text-lg font-bold text-[#1D591F] mb-4">
+          <aside className="bg-white p-6 rounded-xl shadow-2xl">
+            <h4 className="text-lg font-bold text-primary mb-4">
               Latest Updates
             </h4>
             <ul className="space-y-4 text-sm text-gray-700 list-disc list-inside">
@@ -124,7 +124,7 @@ export default function Home() {
           </aside>
         </div>
       </section>
-      <div className="bg-[#2E6F40] h-40 py-6 mt-10 flex flex-wrap justify-center items-center gap-y-4 gap-x-20 sm:gap-60 px-4">
+      <div className="bg-primary h-40 py-6 mt-10 flex flex-wrap justify-center items-center gap-y-4 gap-x-20 sm:gap-60 px-4">
         {info.map((item, index) => (
           <div
             key={index}
@@ -138,11 +138,12 @@ export default function Home() {
         ))}
       </div>
       <GreenCard />
+      <div className="bg-accent">
       <section className="text-center mt-10">
-        <h1 className="text-[#1D591F] font-bold text-2xl sm:text-3xl">
+        <h1 className="text-primary font-bold text-2xl sm:text-3xl">
           Track Your Package
         </h1>
-        <p className="text-[#206413] mt-5 mr-10 ml-15 sm:text-xl">
+        <p className="text-light-primary mt-5 mr-10 ml-15 sm:text-xl">
           Enter your tracking number to get real-time updates on your shipment.
         </p>
         <div className="flex flex-col sm:flex-row justify-center mt-6 space-y-4 sm:space-y-0 sm:space-x-4 items-center">
@@ -151,12 +152,13 @@ export default function Home() {
             placeholder="Enter tracking number..."
             className="w-80 sm:w-96 px-3 py-1 sm:px-5 sm:py-2 rounded-md border font-sans bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
           />
-          <button className="bg-[#2E6F40] text-white px-10 py-2 rounded-md flex items-center space-x-2 hover:bg-[#245c34] transition">
+          <button className="bg-primary text-white px-10 py-2 rounded-md flex items-center space-x-2 hover:bg-[#245c34] transition">
             <Search size={18} />
             <span>Track</span>
           </button>
         </div>
       </section>
+      </div>
       <FAQ />
       <Footer />
     </div>

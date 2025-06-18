@@ -109,7 +109,7 @@ const NotificationCard = ({ notification }) => {
                 {getPriorityLabel(notification.priority)}
               </span>
             </div>
-            <h3 className="font-semibold text-[var(--foreground)] mb-2">
+            <h3 className="font-semibold text-primary mb-2">
               {notification.title}
             </h3>
             <div className="flex items-center gap-4 text-sm text-[var(--secondary)] mb-2">
@@ -200,7 +200,7 @@ export default function NotificationsUpdatesPage() {
     <section className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[var(--foreground)] mb-2">
+        <h1 className="text-2xl font-bold text-primary mb-2">
           Notifications & Updates
         </h1>
         

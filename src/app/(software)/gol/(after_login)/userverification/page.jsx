@@ -67,8 +67,8 @@ const UserVerificationPage = () => {
           onClick={() => setVerificationStatus('Approved')}
           className={`px-4 py-2 rounded-lg font-medium text-sm ${
             verificationStatus === 'Approved'
-              ? 'bg-light-primary text-white'
-              : 'bg-light-primary text-light-primary'
+              ? 'bg-primary text-white'
+              : 'bg-primary text-light-primary'
           }`}
         >
           ✓ Approved
@@ -91,11 +91,11 @@ const UserVerificationPage = () => {
       <input
         type="text"
         placeholder="Search by name/email/contact..."
-        className={`border rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 ${
+        className={`border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 ${
           isMobile ? 'w-48 text-sm' : 'w-64'
         }`}
       />
-      <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+      <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-700">
         Search
       </button>
     </div>

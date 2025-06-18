@@ -110,7 +110,7 @@ export default function TrackingPage({ orderData, onBack }) {
       <div className="flex items-center p-4 border-b bg-primary text-white rounded-t-lg">
         <button 
           onClick={onBack}
-          className="mr-4 hover:bg-white p-2 rounded"
+          className="mr-4 hover:bg-white/10 p-2 rounded"
         >
           <ArrowLeft size={20} />
         </button>

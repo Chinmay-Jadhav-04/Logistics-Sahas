@@ -110,7 +110,7 @@ const Location = ({
           {/* Button */}
           <button
             onClick={handleDirectionsClick}
-            className="w-full text-white py-3 px-4 rounded-lg bg-[#2E6F40] font-medium flex items-center justify-center hover:opacity-90 transition-colors"
+            className="w-full text-white py-3 px-4 rounded-lg bg-primary font-medium flex items-center justify-center hover:opacity-90 transition-colors"
           >
             <Navigation className="h-5 w-5 mr-2" />
             Get Directions

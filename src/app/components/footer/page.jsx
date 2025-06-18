@@ -6,20 +6,20 @@ export default function Footer() {
     return (
         <footer>
             {/* Top Banner */}
-            <div className="bg-[#2E6F40] w-full px-4 py-10 mt-30 flex flex-col justify-center items-center text-center">
+            <div className="bg-primary w-full px-4 py-10 mt-30 flex flex-col justify-center items-center text-center">
                 <h1 className="text-white text-2xl sm:text-3xl font-sans font-semibold">We Are Here To Talk</h1>
                 <p className="text-gray-300 mt-3 max-w-xl">
                     Have questions about our services? Our expert team is here to help you with any inquiries.
                 </p>
                 <Link href="/contact">
-                    <button className="text-[#2E6F40] bg-white py-1.5 px-4 mt-4 rounded-md">
+                    <button className="text-light-primary bg-white py-1.5 px-4 mt-4 rounded-md">
                         Contact Us
                     </button>
                 </Link>
             </div>
 
             {/* Footer Links */}
-            <div className="footer-text pl-8 mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10  text-[#2E6F40]">
+            <div className="footer-text pl-8 mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10  text-light-primary">
                 <div className="pr-10">
                     <h2 className="font-bold mb-2 ">Green Ocean</h2>
                     <p>Sustainable global logistics solutions for a better tomorrow.</p>
@@ -57,7 +57,7 @@ export default function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-green-800 py-4 text-center text-md font-semibold text-[#2E6F40]">
+            <div className="border-t border-green-800 py-4 text-center text-md font-semibold text-primary">
                 © 2025 SKZ TECH. All rights reserved.
             </div>
         </footer>

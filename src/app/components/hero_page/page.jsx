@@ -42,8 +42,8 @@ export default function HeroPage() {
     const heroImages = [
         '/bgimg.jpeg',
         '/bgimg1.jpeg',
-        '/bgimg2.jpeg',
-        '/bgimg3.webp',
+        '/bgimg4.webp',
+        '/cargo-ship.png',
     ];
 
     return (

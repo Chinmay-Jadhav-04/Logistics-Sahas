@@ -34,7 +34,7 @@ const UserManagementPage = () => {
                 onClick={() => setActiveTab('CFS')}
                 className={`px-6 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'CFS'
-                    ? 'bg-green-600 text-white shadow-sm'
+                    ? 'bg-primary text-white shadow-sm'
                     : 'text-foreground hover:text-foreground'
                 }`}
               >
@@ -44,7 +44,7 @@ const UserManagementPage = () => {
                 onClick={() => setActiveTab('Customer')}
                 className={`px-6 py-2 text-sm font-medium rounded-md transition-all ${
                   activeTab === 'Customer'
-                    ? 'bg-green-600 text-white shadow-sm'
+                    ? 'bg-primary text-white shadow-sm'
                     : 'text-foreground hover:text-foreground'
                 }`}
               >

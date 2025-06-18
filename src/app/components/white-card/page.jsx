@@ -35,17 +35,17 @@ export default function WhiteCard() {
   return (
     <div>
       <section className="hidden sm:flex justify-center items-center h-screen w-full">
-        <div className="white-card relative min-h-[90dvh] w-[90%] bg-background rounded-lg shadow-lg">
+        <div className="white-card relative min-h-[90dvh] w-[90%] bg-accent border rounded-lg shadow-2xl">
 
-        <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-[58%] h-1 bg-[#16A34A] z-0" />
+        <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-[58%] h-1 bg-primary z-0" />
 
            <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-[60%] flex justify-between z-10">
             {icons.map((icon, index) => (
               <div key={index} className="flex flex-col items-center">
-                <div className="bg-green-100 text-green-700 p-3 rounded-full mt-3">
+                <div className="bg-gray-200 text-primary p-3 rounded-full mt-3">
                   {icon.icon}
                 </div>
-                <p className="mt-2 text-sm font-medium text-black text-center">{icon.label}</p>
+                <p className="mt-2 text-sm font-medium text-primary text-center">{icon.label}</p>
               </div>
             ))}
           </div>
@@ -72,10 +72,10 @@ export default function WhiteCard() {
                       placeholder="Enter your location"
                       value={fromLocation}
                       onChange={(e) => setFromLocation(e.target.value)}
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-100 focus:border-green-500 transition-all duration-300 text-lg placeholder-gray-400"
+                      className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-green-100 focus:border-light-primary transition-all duration-300 text-lg placeholder-gray-400"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-light-primary rounded-full animate-pulse"></div>
                     </div>
                   </div>
                   <p className="text-sm text-light-primary mt-2 flex items-center gap-2">
@@ -90,7 +90,7 @@ export default function WhiteCard() {
                   </label>
                   <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-green-600">₹{tariffRange.toLocaleString()}</span>
+                      <span className="text-2xl font-bold text-light-primary">₹{tariffRange.toLocaleString()}</span>
                       <span className="text-sm text-primary">Max Budget</span>
                     </div>
                     <input
@@ -102,7 +102,7 @@ export default function WhiteCard() {
                       onChange={(e) => setTariffRange(Number(e.target.value))}
                       className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                       style={{
-                        background: `linear-gradient(to right, #10B981 0%, #10B981 ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB 100%)`
+                       background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB 100%)`
                       }}
                     />
                     <div className="flex justify-between text-xs text-primary mt-2">
@@ -122,7 +122,7 @@ export default function WhiteCard() {
                   </label>
                   <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-blue-600">{freeDaysRange}</span>
+                      <span className="text-2xl font-bold text-light-primary">{freeDaysRange}</span>
                       <span className="text-sm text-primary">Days</span>
                     </div>
                     <input
@@ -153,7 +153,8 @@ export default function WhiteCard() {
                 <button
                   onClick={handleSearch}
                   disabled={!fromLocation}
-                  className="group relative inline-flex items-center justify-center px-12 py-5 text-xl font-bold text-white transition-all duration-300 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-4 focus:ring-green-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  className="group relative inline-flex items-center justify-center px-12 py-5 text-xl font-bold text-white transition-all duration-300 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl transform hover:scale-105"
+
                 >
                   <Search className="w-6 h-6 mr-3" />
                   Search

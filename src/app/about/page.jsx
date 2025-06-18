@@ -7,11 +7,12 @@ export default function AboutUs() {
     const router = useRouter();
 
     return (
-        <section className="relative min-h-screen w-full bg-gradient-to-br from-[#e8f3eb] to-[#d4e6d2] flex flex-col items-center overflow-x-hidden">
+        <section className="relative min-h-screen w-full bg-gradient-to-br from-[#f8f8f8] to-[#f8f8f8] flex flex-col items-center overflow-x-hidden"
+>
             {/* Back Button */}
             <button
                 onClick={() => router.back()}
-                className="absolute top-6 left-6 z-50 bg-white text-[#2E6F40] px-4 py-2 rounded-full shadow hover:bg-[#2E6F40] hover:text-white transition duration-300"
+                className="absolute top-6 left-6 z-50 bg-white text-primary px-4 py-2 rounded-full shadow hover:bg-light-primary hover:text-white transition duration-300"
             >
                 ← Back
             </button>
@@ -38,12 +39,12 @@ export default function AboutUs() {
             {/* Our Story */}
             <div className="w-full max-w-6xl px-4 md:px-8 py-20 flex flex-col md:flex-row gap-12 items-center">
                 <div className="flex-1 space-y-5 animate-fade-right">
-                    <h2 className="text-4xl font-bold text-[#2E6F40]">Our Story</h2>
-                    <p className="text-[#3C4D03] text-lg leading-relaxed">
+                    <h2 className="text-4xl font-bold text-primary">Our Story</h2>
+                    <p className="text-light-primary text-lg leading-relaxed">
                         Founded in 2010, GOL started as a small team with a big dream: to make logistics seamless,
                         sustainable, and accessible. Today, we connect businesses and people across 150+ countries.
                     </p>
-                    <ul className="grid grid-cols-2 gap-2 text-[#2E6F40] font-medium list-disc pl-5">
+                    <ul className="grid grid-cols-2 gap-2 text-primary font-medium list-disc pl-5">
                         <li>150+ Countries Served</li>
                         <li>1000+ Global Routes</li>
                         <li>24/7 Customer Support</li>
@@ -63,7 +64,7 @@ export default function AboutUs() {
             </div>
 
             {/* Values */}
-            <div className="w-full bg-[#2E6F40] py-20 px-4 text-white text-center">
+            <div className="w-full bg-primary py-20 px-4 text-white text-center">
                 <h2 className="text-3xl md:text-4xl font-bold mb-12 animate-fade-up">Our Core Values</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
                     {[
@@ -85,11 +86,11 @@ export default function AboutUs() {
                     ].map((value, i) => (
                         <div
                             key={i}
-                            className="bg-white text-[#2E6F40] rounded-xl shadow-md p-6 flex flex-col items-center transition-transform hover:scale-105 animate-fade-up"
+                            className="bg-white text-primary rounded-xl shadow-md p-6 flex flex-col items-center transition-transform hover:scale-105 animate-fade-up"
                         >
                             <Image src={value.icon} alt={value.title} width={48} height={48} className="mb-4" />
                             <h3 className="font-bold text-lg mb-2">{value.title}</h3>
-                            <p className="text-[#3C4D03] text-center">{value.desc}</p>
+                            <p className="text-light-primary text-center">{value.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -97,7 +98,7 @@ export default function AboutUs() {
 
             {/* Leadership */}
             <div className="py-20 px-4 max-w-6xl mx-auto text-center">
-                <h3 className="text-3xl font-bold text-[#2E6F40] mb-10 animate-fade-up">Meet Our Leadership</h3>
+                <h3 className="text-3xl font-bold text-primary mb-10 animate-fade-up">Meet Our Leadership</h3>
                 <div className="flex flex-wrap justify-center gap-8">
                     {[
                         { name: 'Alex Carter', role: 'CEO & Founder', img: '/bgimg4.webp' },
@@ -115,8 +116,8 @@ export default function AboutUs() {
                                 height={80}
                                 className="rounded-full object-cover mb-3"
                             />
-                            <span className="font-semibold text-[#2E6F40]">{member.name}</span>
-                            <span className="text-[#666A6D] text-sm">{member.role}</span>
+                            <span className="font-semibold text-primary">{member.name}</span>
+                            <span className="text-light-primary text-sm">{member.role}</span>
                         </div>
                     ))}
                 </div>

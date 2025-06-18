@@ -28,8 +28,8 @@ export default function FAQ() {
 
     return (
         <section className="mt-20 text-center px-4 max-w-2xl mx-auto">
-            <h1 className="text-[#3C4D03] text-3xl font-bold">Frequently Asked Questions</h1>
-            <p className="text-[#3C4D03] mt-5 mr-12 ml-15 sm:text-xl">Find answers to common questions about our services.</p>
+            <h1 className="text-primary text-3xl font-bold">Frequently Asked Questions</h1>
+            <p className="text-light-primary mt-5 mr-12 ml-15 sm:text-xl">Find answers to common questions about our services.</p>
 
             <div className="mt-10 text-left space-y-4">
                 {faqData.map((item, index) => (
@@ -38,7 +38,7 @@ export default function FAQ() {
                             className="w-full text-left"
                             onClick={() => toggleFAQ(index)}
                         >
-                            <div className="flex justify-between items-center w-full text-lg font-medium text-[#3c4d03]">
+                            <div className="flex justify-between items-center w-full text-lg font-medium text-light-primary">
                                 {item.question}
                                 {openIndex === index ? (
                                     <ChevronUp className="w-5 h-5" />

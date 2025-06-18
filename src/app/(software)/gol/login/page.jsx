@@ -130,7 +130,7 @@ export default function GOLLoginPage() {
               </div>
               <a
                 href="#"
-                className="text-sm text-green-600 hover:text-green-500"
+                className="text-sm text-primary hover:text-blue-500"
               >
                 Forgot password?
               </a>
@@ -138,7 +138,7 @@ export default function GOLLoginPage() {
 
             <Button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-200"
+              className="w-full bg-primary hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-200"
             >
               Sign In
               <ArrowRightToLine className="ml-2 h-4 w-4" />
@@ -172,7 +172,7 @@ export default function GOLLoginPage() {
               Need access?{" "}
               <a
                 href="#"
-                className="text-green-600 hover:text-green-500 font-medium"
+                className="text-primary hover:text-blue-500 font-medium"
               >
                 Contact Administrator
               </a>

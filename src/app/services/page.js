@@ -7,7 +7,7 @@ import {
   Truck, Warehouse, Package, Container, MapPin,
   MessageCircle, CheckCircle, ArrowRight, Shield, Clock, Users
 } from 'lucide-react';
-import Footer from '../components/footer/page'; // Adjust if path is different
+import Footer from '../components/footer/footer'; // Adjust if path is different
 
 const ServicesPage = () => {
   const router = useRouter();

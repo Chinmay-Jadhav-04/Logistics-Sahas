@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { ArrowLeft, Package, MapPin, Clock, Truck, CheckCircle } from 'lucide-react'
-import Footer from '../components/footer/page'
+import Footer from '../components/footer/footer'
 
 const TrackingPage = () => {
   const [containerID, setContainerID] = useState('')

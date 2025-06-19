@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Footer from '../components/footer/page';
+import Footer from '../components/footer/footer';
 
 export default function ContactUs() {
     const router = useRouter();

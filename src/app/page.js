@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import { Ship, Plane, Truck, Search, Menu, X } from "lucide-react";
-import Packages from "./components/packages/page";
-import WhiteCard from "./components/white-card/page";
-import GreenCard from "./components/green-card/page";
-import FAQ from "./components/faq/page";
-import Footer from "./components/footer/page";
+import Packages from "./components/packages/packages";
+import WhiteCard from "./components/white-card/whitecard";
+import GreenCard from "./components/green-card/greencard";
+import FAQ from "./components/faq/faq";
+import Footer from "./components/footer/footer";
 import { useState } from "react";
-import HeroPage from "./components/hero_page/page";
+import HeroPage from "./components/hero_page/heropage";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Home() {
           <div className="md:col-span-2 space-y-8">
             {/* Card 1 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <img
+              <Image
                 src="https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg"
                 alt="Singapore Logistics Hub"
                 className="w-full h-56 object-cover"
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
             {/* Card 2 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <img
+              <Image
                 src="https://images.pexels.com/photos/221047/pexels-photo-221047.jpeg"
                 alt="Eco-Friendly Packaging"
                 className="w-full h-56 object-cover"
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
             {/* Card 3 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <img
+              <Image
                 src="https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg"
                 alt="24/7 Customer Support"
                 className="w-full h-56 object-cover"

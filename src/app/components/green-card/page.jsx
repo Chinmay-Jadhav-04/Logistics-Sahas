@@ -2,10 +2,10 @@ import { Ship, Truck, Plane, Package } from "lucide-react";
 
 export default function GreenCard() {
     const cards = [
-        { icon: <Ship size={32} />, label: "Shipping Freight", p: "Global sea freight solutions" },
-        { icon: <Truck size={32} />, label: "Truck Freight", p: "Nationwide road transportation" },
-        { icon: <Plane size={32} />, label: "Air Freight", p: "Express air cargo services" },
-        { icon: <Package size={32} />, label: "Express Delivery", p: "Fast local delivery options" },
+        { icon: <Ship size={32} />, label: "CFS", p: "Global sea freight solutions" },
+        { icon: <Truck size={32} />, label: "Transport", p: "Nationwide road transportation" },
+        { icon: <Plane size={32} />, label: "3PL", p: "All Services in one place" },
+        { icon: <Package size={32} />, label: "Warehouse", p: "Storage Facilities Available" },
     ];
 
     return (

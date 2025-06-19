@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import HeaderLayout from "./components/HeaderLayout";
 import MobileHeaderLayout from "./components/MobileHeaderLayout";
 import { ServiceProviders, ThreePLServiceProviders, servicesList } from "@/constants/services";
@@ -20,6 +20,7 @@ import { RequestPopup } from "./components/RequestPopup";
 import UrgentRequestPopup from "./components/UrgentRequestPopup";
 
 export default function ClientHomePage() {
+	const searchParams = useSearchParams();
 	const { data: providers } = useCollection('service_provider', {
 		expand: 'service'
 	});
@@ -30,6 +31,20 @@ export default function ClientHomePage() {
 	const [SearchQuery, setSearchQuery] = useState('');
 	const [isOpen, setIsOpen] = useState(false);
 	const [isPopup, setIsPopup] = useState(false);
+
+	// Initialize service from URL parameters
+	useEffect(() => {
+		const serviceFromUrl = searchParams.get('service');
+		const locationFromUrl = searchParams.get('location');
+		
+		if (serviceFromUrl) {
+			setCurrentService(serviceFromUrl.toLowerCase());
+		}
+		
+		if (locationFromUrl) {
+			setSearchQuery(locationFromUrl);
+		}
+	}, [searchParams]);
 
 	const checkShouldShoPopup = () => {
 		const now = Date.now();

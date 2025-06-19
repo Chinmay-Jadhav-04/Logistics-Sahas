@@ -4,13 +4,15 @@ import { useRouter } from 'next/navigation';
 import {
   Package, Warehouse, Truck, Ship, ShieldCheck,
   Search, MapPin, IndianRupee, Calendar, Clock,
-  Lightbulb, Rocket,
-  Handshake
+  Lightbulb, Rocket, Handshake, Navigation
 } from 'lucide-react';
 
 export default function WhiteCard() {
   const router = useRouter();
   const [fromLocation, setFromLocation] = useState('');
+  const [toLocation, setToLocation] = useState('');
+  const [vehicleType, setVehicleType] = useState('');
+  const [numberOfVehicles, setNumberOfVehicles] = useState(1);
   const [tariffRange, setTariffRange] = useState(25000);
   const [freeDaysRange, setFreeDaysRange] = useState(7);
   const [activeService, setActiveService] = useState('cfs');
@@ -23,8 +25,26 @@ export default function WhiteCard() {
     { id: 'customs', label: "Customs", icon: <ShieldCheck size={24} /> },
   ];
 
+  const vehicleTypes = [
+    'Truck',
+    'Container Truck',
+    'Flatbed Truck',
+    'Refrigerated Truck',
+    'Tanker Truck',
+    'Cargo Van',
+    'Pickup Truck',
+    'Trailer'
+  ];
+
   const handleServiceClick = (serviceId) => {
     setActiveService(serviceId);
+    // Reset form fields when switching services
+    setFromLocation('');
+    setToLocation('');
+    setVehicleType('');
+    setNumberOfVehicles(1);
+    setTariffRange(25000);
+    setFreeDaysRange(7);
   };
 
   const handleSearch = () => {
@@ -33,13 +53,50 @@ export default function WhiteCard() {
       return;
     }
 
+    // Validation based on service type
+    if (activeService === 'transport') {
+      if (!fromLocation || !toLocation || !vehicleType) {
+        alert('Please fill in all required fields for Transport service');
+        return;
+      }
+    } else if (activeService === '3pl') {
+      if (!fromLocation || !toLocation || !vehicleType) {
+        alert('Please fill in all required fields for 3PL service');
+        return;
+      }
+    } else {
+      if (!fromLocation) {
+        alert('Please enter your location');
+        return;
+      }
+    }
+
     const searchParams = new URLSearchParams({
       location: fromLocation,
-      tariff: tariffRange.toString(),
-      freeDays: freeDaysRange.toString(),
       service: activeService
     });
-    router.push(`/customer/home?${searchParams.toString()}`);
+
+    // Add additional parameters based on service type
+    if (activeService === 'transport') {
+      searchParams.append('toLocation', toLocation);
+      searchParams.append('vehicleType', vehicleType);
+      searchParams.append('numberOfVehicles', numberOfVehicles.toString());
+    } else if (activeService === '3pl') {
+      searchParams.append('toLocation', toLocation);
+      searchParams.append('vehicleType', vehicleType);
+      searchParams.append('numberOfVehicles', numberOfVehicles.toString());
+      searchParams.append('tariff', tariffRange.toString());
+      searchParams.append('freeDays', freeDaysRange.toString());
+    } else {
+      searchParams.append('tariff', tariffRange.toString());
+      searchParams.append('freeDays', freeDaysRange.toString());
+    }
+
+    if (activeService === 'transport') {
+      router.push(`/transport?${searchParams.toString()}`);
+    } else {
+      router.push(`/customer/home?${searchParams.toString()}`);
+    }
   };
 
   const getActiveServiceIndex = () => {
@@ -49,6 +106,338 @@ export default function WhiteCard() {
   const getProgressWidth = () => {
     const activeIndex = getActiveServiceIndex();
     return `${(activeIndex / (services.length - 1)) * 100}%`;
+  };
+
+  const renderFormFields = () => {
+    if (activeService === 'transport') {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          {/* From Location */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <MapPin className="text-primary" /> From Location
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Enter pickup location"
+                value={fromLocation}
+                onChange={(e) => setFromLocation(e.target.value)}
+                className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-400"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                <div className="w-3 h-3 bg-primary rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* To Location */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <Navigation className="text-green-500" /> To Location
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Enter delivery location"
+                value={toLocation}
+                onChange={(e) => setToLocation(e.target.value)}
+                className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-400"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Vehicle Type */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <Truck className="text-purple-500" /> Vehicle Type
+            </label>
+            <select
+              value={vehicleType}
+              onChange={(e) => setVehicleType(e.target.value)}
+              className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-lg"
+            >
+              <option value="">Select vehicle type</option>
+              {vehicleTypes.map((type) => (
+                <option key={type} value={type}>{type}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Number of Vehicles */}
+          <div className="space-y-3 md:col-span-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <Package className="text-orange-500" /> Number of Vehicles
+            </label>
+            <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-2xl font-bold text-gray-800">{numberOfVehicles}</span>
+                <span className="text-sm text-gray-600">Vehicles</span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+                value={numberOfVehicles}
+                onChange={(e) => setNumberOfVehicles(Number(e.target.value))}
+                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                style={{
+                  background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(numberOfVehicles / 10) * 100}%, #E5E7EB ${(numberOfVehicles / 10) * 100}%, #E5E7EB 100%)`
+                }}
+              />
+              <div className="flex justify-between text-xs text-gray-600 mt-2">
+                <span>1 Vehicle</span>
+                <span>10 Vehicles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (activeService === '3pl') {
+      return (
+        <div className="space-y-6">
+          {/* First Row: From and To Location */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <MapPin className="text-blue-500" size={18} /> From Location
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Enter pickup location"
+                  value={fromLocation}
+                  onChange={(e) => setFromLocation(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-base placeholder-gray-400"
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <Navigation className="text-green-500" size={18} /> To Location
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Enter delivery location"
+                  value={toLocation}
+                  onChange={(e) => setToLocation(e.target.value)}
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-base placeholder-gray-400"
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Second Row: Vehicle Type and Number of Vehicles */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <Truck className="text-purple-500" size={18} /> Vehicle Type
+              </label>
+              <select
+                value={vehicleType}
+                onChange={(e) => setVehicleType(e.target.value)}
+                className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-base"
+              >
+                <option value="">Select vehicle type</option>
+                {vehicleTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <Package className="text-orange-500" size={18} /> Number of Vehicles
+              </label>
+              <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xl font-bold text-gray-800">{numberOfVehicles}</span>
+                  <span className="text-sm text-gray-600">Vehicles</span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value={numberOfVehicles}
+                  onChange={(e) => setNumberOfVehicles(Number(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                  style={{
+                    background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(numberOfVehicles / 10) * 100}%, #E5E7EB ${(numberOfVehicles / 10) * 100}%, #E5E7EB 100%)`
+                  }}
+                />
+                <div className="flex justify-between text-xs text-gray-600 mt-1">
+                  <span>1</span>
+                  <span>10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Third Row: Tariff and Storage Days */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <IndianRupee className="text-green-500" size={18} /> Max Tariff Rate
+              </label>
+              <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xl font-bold text-gray-800">₹{tariffRange.toLocaleString()}</span>
+                  <span className="text-sm text-gray-600">Max Budget</span>
+                </div>
+                <input
+                  type="range"
+                  min="5000"
+                  max="100000"
+                  step="1000"
+                  value={tariffRange}
+                  onChange={(e) => setTariffRange(Number(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                  style={{
+                    background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB 100%)`
+                  }}
+                />
+                <div className="flex justify-between text-xs text-gray-600 mt-1">
+                  <span>₹5K</span>
+                  <span>₹1L</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <Clock className="text-purple-500" size={18} /> Free Storage Days
+              </label>
+              <div className="bg-gray-50 p-4 rounded-xl border-2 border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xl font-bold text-gray-800">{freeDaysRange}</span>
+                  <span className="text-sm text-gray-600">Days</span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="15"
+                  step="1"
+                  value={freeDaysRange}
+                  onChange={(e) => setFreeDaysRange(Number(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                  style={{
+                    background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(freeDaysRange / 15) * 100}%, #E5E7EB ${(freeDaysRange / 15) * 100}%, #E5E7EB 100%)`
+                  }}
+                />
+                <div className="flex justify-between text-xs text-gray-600 mt-1">
+                  <span>1</span>
+                  <span>15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      // Default form for CFS and Warehouse (unchanged)
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          {/* Location Input */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <MapPin className="text-blue-500" /> Location
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Enter your location"
+                value={fromLocation}
+                onChange={(e) => setFromLocation(e.target.value)}
+                className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-400"
+              />
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
+              <Calendar className="w-4 h-4" /> Select your preferred {services.find(s => s.id === activeService)?.label} area
+            </p>
+          </div>
+
+          {/* Tariff Rate */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <IndianRupee className="text-green-500" /> Max Tariff Rate
+            </label>
+            <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-2xl font-bold text-gray-800">₹{tariffRange.toLocaleString()}</span>
+                <span className="text-sm text-gray-600">Max Budget</span>
+              </div>
+              <input
+                type="range"
+                min="5000"
+                max="100000"
+                step="1000"
+                value={tariffRange}
+                onChange={(e) => setTariffRange(Number(e.target.value))}
+                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                style={{
+                  background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB 100%)`
+                }}
+              />
+              <div className="flex justify-between text-xs text-gray-600 mt-2">
+                <span>₹5,000</span>
+                <span>₹1,00,000</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
+              <Lightbulb className="w-4 h-4" /> Set your budget range
+            </p>
+          </div>
+
+          {/* Free Storage Days */}
+          <div className="space-y-3">
+            <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+              <Clock className="text-purple-500" /> Free Storage Days
+            </label>
+            <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-2xl font-bold text-gray-800">{freeDaysRange}</span>
+                <span className="text-sm text-gray-600">Days</span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="15"
+                step="1"
+                value={freeDaysRange}
+                onChange={(e) => setFreeDaysRange(Number(e.target.value))}
+                className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                style={{
+                  background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(freeDaysRange / 15) * 100}%, #E5E7EB ${(freeDaysRange / 15) * 100}%, #E5E7EB 100%)`
+                }}
+              />
+              <div className="flex justify-between text-xs text-gray-600 mt-2">
+                <span>1 Day</span>
+                <span>15 Days</span>
+              </div>
+            </div>
+            <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
+              <Calendar className="w-4 h-4" /> Up to {freeDaysRange} free storage days
+            </p>
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
@@ -114,10 +503,12 @@ export default function WhiteCard() {
 
           {/* Main Content */}
           <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-[85%] max-w-5xl">
-            <div className="bg-white/95 backdrop-blur-sm p-12 rounded-2xl shadow-2xl border border-gray-100">
+            <div className={`bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-100 ${
+              activeService === '3pl' ? 'p-8' : 'p-12'
+            }`}>
 
               {/* Header */}
-              <div className="text-center mb-10">
+              <div className={`text-center ${activeService === '3pl' ? 'mb-6' : 'mb-10'}`}>
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   🔍 What Are You Looking For?
                 </h2>
@@ -126,99 +517,17 @@ export default function WhiteCard() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                {/* Location Input */}
-                <div className="space-y-3">
-                  <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                    <MapPin className="text-blue-500" /> Location
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Enter your location"
-                      value={fromLocation}
-                      onChange={(e) => setFromLocation(e.target.value)}
-                      className="w-full px-6 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-400"
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" /> Select your preferred {services.find(s => s.id === activeService)?.label} area
-                  </p>
-                </div>
-
-                {/* Tariff Rate */}
-                <div className="space-y-3">
-                  <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                    <IndianRupee className="text-green-500" /> Max Tariff Rate
-                  </label>
-                  <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-gray-800">₹{tariffRange.toLocaleString()}</span>
-                      <span className="text-sm text-gray-600">Max Budget</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="5000"
-                      max="100000"
-                      step="1000"
-                      value={tariffRange}
-                      onChange={(e) => setTariffRange(Number(e.target.value))}
-                      className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                      style={{
-                        background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB ${((tariffRange - 5000) / (100000 - 5000)) * 100}%, #E5E7EB 100%)`
-                      }}
-                    />
-                    <div className="flex justify-between text-xs text-gray-600 mt-2">
-                      <span>₹5,000</span>
-                      <span>₹1,00,000</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
-                    <Lightbulb className="w-4 h-4" /> Set your budget range
-                  </p>
-                </div>
-
-                {/* Free Storage Days */}
-                <div className="space-y-3">
-                  <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                    <Clock className="text-purple-500" /> Free Storage Days
-                  </label>
-                  <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-gray-800">{freeDaysRange}</span>
-                      <span className="text-sm text-gray-600">Days</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="15"
-                      step="1"
-                      value={freeDaysRange}
-                      onChange={(e) => setFreeDaysRange(Number(e.target.value))}
-                      className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
-                      style={{
-                        background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${(freeDaysRange / 15) * 100}%, #E5E7EB ${(freeDaysRange / 15) * 100}%, #E5E7EB 100%)`
-                      }}
-                    />
-                    <div className="flex justify-between text-xs text-gray-600 mt-2">
-                      <span>1 Day</span>
-                      <span>15 Days</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 mt-2 flex items-center gap-2">
-                    <Calendar className="w-4 h-4" /> Up to {freeDaysRange} free storage days
-                  </p>
-                </div>
-              </div>
+              {renderFormFields()}
 
               {/* Search Button */}
               <div className="text-center">
                 <button
                   onClick={handleSearch}
-                  disabled={!fromLocation}
+                  disabled={
+                    (activeService === 'transport' && (!fromLocation || !toLocation || !vehicleType)) ||
+                    (activeService === '3pl' && (!fromLocation || !toLocation || !vehicleType)) ||
+                    ((activeService === 'cfs' || activeService === 'warehouse') && !fromLocation)
+                  }
                   className="group relative inline-flex items-center justify-center px-12 py-5 text-xl font-bold text-white transition-all duration-300 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
                   <Search className="w-6 h-6 mr-3" />
@@ -229,8 +538,6 @@ export default function WhiteCard() {
                   <Rocket className="w-4 h-4" /> Find the perfect solution in seconds
                 </p>
               </div>
-
-
 
             </div>
           </div>

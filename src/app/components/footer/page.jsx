@@ -38,10 +38,10 @@ export default function Footer() {
                 <div>
                     <h2 className="font-bold mb-2">Services</h2>
                     <ul className="space-y-1">
-                        <li>Sea Freight</li>
-                        <li>Air Freight</li>
-                        <li>Road Transport</li>
-                        <li>Express Delivery</li>
+                        <li>CFS</li>
+                        <li>Transport</li>
+                        <li>3PL</li>
+                        <li>Warehouse</li>
                     </ul>
                 </div>
 
@@ -49,9 +49,9 @@ export default function Footer() {
                     <h2 className="font-bold mb-2">Contact</h2>
                     <ul className="space-y-1">
                         <li>support@greenocean.com</li>
-                        <li>+1 (555) 123-4567</li>
-                        <li>123 Logistics Way</li>
-                        <li>Singapore, 123456</li>
+                        <li>+91 9892464661</li>
+                        <li>Tower 2, 608 E Wing Sea Woods Grand Central</li>
+                        <li>Plot No R 1, Nerul, Thane, Maharashtra, 400706</li>
                     </ul>
                 </div>
             </div>

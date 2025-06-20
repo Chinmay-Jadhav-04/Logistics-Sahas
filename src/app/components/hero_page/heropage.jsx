@@ -35,7 +35,7 @@ export default function HeroPage() {
     '/bgimg.jpeg',
     '/bgimg1.jpeg',
     '/bgimg4.webp',
-    '/cargo-ship.png',
+    '/mainbg.jpg',
   ];
 
   return (

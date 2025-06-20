@@ -1,4 +1,4 @@
-import { ArrowDown, Bell, Boxes, Container, CreditCard, FastForward, FileSearch2, FileText, LayoutDashboard, LayoutGrid, MailQuestion, MapPinned, Package, Receipt, ReceiptIndianRupee, ReceiptText, Scale, Scan, Truck, UploadIcon, User, Shield, Users, Database, Settings, Activity } from "lucide-react";
+import { ArrowDown, Bell, Boxes, Container, CreditCard, FastForward, FileSearch2, FileText, LayoutDashboard, LayoutGrid, MailQuestion, MapPinned, Package, Receipt, ReceiptIndianRupee, ReceiptText, Scale, Scan, Truck, UploadIcon, User, Shield, Users, Database, Settings, Activity, ListCheckIcon, Logs, UserRoundCheck, SquareUserRound, Ship, MessageCircleMore, PackageX } from "lucide-react";
 
 export const navLinks = [
 	{
@@ -37,7 +37,7 @@ export const navLinks = [
 		]
 	},
 	{ label: "Containers Management", href: "/customer/container-management", access: 'Customer', icon: Container },
-	{ label: "Notifications & Updates", href: "", access: 'Customer', icon: Bell },
+	{ label: "Notifications & Updates", href: "/customer/notifications-updates", access: 'Customer', icon: Bell },
 	{ label: "Profile & Support", href: "/customer/profile", access: 'Customer', icon: User },
 
 
@@ -71,7 +71,7 @@ export const navLinks = [
 			{ label: "Job Orders", href: '/client/cfs/services/job-order', access: 'Client', icon: FileText, },
 		]
 	},
-	{ label: "Notifications & Updates", href: "", access: 'Client', icon: Bell },
+	{ label: "Notifications & Updates", href: "/client/notifications-updates", access: 'Client', icon: Bell },
 	{ label: "Profile & Support", href: "/client/profile", access: 'Client', icon: User },
 
 
@@ -92,8 +92,15 @@ export const navLinks = [
 			{ label: "Service Requests", href: "/gol/cfs/requests", icon: MailQuestion, access: 'GOL', },
 			{ label: "Pricing Requests", href: "/gol/cfs/pricing-requests", icon: ReceiptIndianRupee, access: 'GOL', },
 			{ label: "Tariff Upload", href: "/gol/cfs/tariff-upload", access: 'GOL', icon: UploadIcon },
+			{ label: "CFS-List", href: "/gol/cfs-list", icon: ListCheckIcon, acess: 'GOL', },
 		]
 	},
+	{ label: "Logs", href: "/gol/logs", icon: Logs, access: 'GOL', },
+	{ label: "User-Management", href: "/gol/usermanagement", icon: UserRoundCheck, access: 'GOL', },
+	{ label: "User-Verification", href: "/gol/userverification", icon: SquareUserRound, access: 'GOL', },
+	{ label: "Transportation", href: "/gol/transportation", icon: Ship, access: 'GOL', },
+	{ label: "Chat-System", href: "/gol/chat-page", icon: MessageCircleMore, access: 'GOL', },
+	{ label: "Service-Provider", href: "/gol/serviceprovider", icon: PackageX, access: 'GOL', },
 
 	// ROOT/ADMIN
 	{

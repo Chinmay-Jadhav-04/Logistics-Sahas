@@ -47,57 +47,54 @@ export default function WhiteCard() {
     setFreeDaysRange(7);
   };
 
-  const handleSearch = () => {
-    if (activeService === 'customs') {
-      alert('Customs service coming soon!');
+const handleSearch = () => {
+  if (activeService === 'customs') {
+    alert('Customs service coming soon!');
+    return;
+  }
+
+  // Validation based on service type
+  if (activeService === 'transport') {
+    if (!fromLocation || !toLocation || !vehicleType) {
+      alert('Please fill in all required fields for Transport service');
       return;
     }
-
-    // Validation based on service type
-    if (activeService === 'transport') {
-      if (!fromLocation || !toLocation || !vehicleType) {
-        alert('Please fill in all required fields for Transport service');
-        return;
-      }
-    } else if (activeService === '3pl') {
-      if (!fromLocation || !toLocation || !vehicleType) {
-        alert('Please fill in all required fields for 3PL service');
-        return;
-      }
-    } else {
-      if (!fromLocation) {
-        alert('Please enter your location');
-        return;
-      }
+  } else if (activeService === '3pl') {
+    if (!fromLocation || !toLocation || !vehicleType) {
+      alert('Please fill in all required fields for 3PL service');
+      return;
     }
-
-    const searchParams = new URLSearchParams({
-      location: fromLocation,
-      service: activeService
-    });
-
-    // Add additional parameters based on service type
-    if (activeService === 'transport') {
-      searchParams.append('toLocation', toLocation);
-      searchParams.append('vehicleType', vehicleType);
-      searchParams.append('numberOfVehicles', numberOfVehicles.toString());
-    } else if (activeService === '3pl') {
-      searchParams.append('toLocation', toLocation);
-      searchParams.append('vehicleType', vehicleType);
-      searchParams.append('numberOfVehicles', numberOfVehicles.toString());
-      searchParams.append('tariff', tariffRange.toString());
-      searchParams.append('freeDays', freeDaysRange.toString());
-    } else {
-      searchParams.append('tariff', tariffRange.toString());
-      searchParams.append('freeDays', freeDaysRange.toString());
+  } else {
+    if (!fromLocation) {
+      alert('Please enter your location');
+      return;
     }
+  }
 
-    if (activeService === 'transport') {
-      router.push(`/transport?${searchParams.toString()}`);
-    } else {
-      router.push(`/customer/home?${searchParams.toString()}`);
-    }
-  };
+  const searchParams = new URLSearchParams({
+    location: fromLocation,
+    service: activeService
+  });
+
+  // Add additional parameters based on service type
+  if (activeService === 'transport') {
+    searchParams.append('toLocation', toLocation);
+    searchParams.append('vehicleType', vehicleType);
+    searchParams.append('numberOfVehicles', numberOfVehicles.toString());
+  } else if (activeService === '3pl') {
+    searchParams.append('toLocation', toLocation);
+    searchParams.append('vehicleType', vehicleType);
+    searchParams.append('numberOfVehicles', numberOfVehicles.toString());
+    searchParams.append('tariff', tariffRange.toString());
+    searchParams.append('freeDays', freeDaysRange.toString());
+  } else {
+    searchParams.append('tariff', tariffRange.toString());
+    searchParams.append('freeDays', freeDaysRange.toString());
+  }
+
+  // All services route to customer/home as they are tabs/buttons within the same page
+  router.push(`/customer/home?${searchParams.toString()}`);
+};
 
   const getActiveServiceIndex = () => {
     return services.findIndex(service => service.id === activeService);

@@ -7,7 +7,7 @@ export default function ContactUs() {
     const router = useRouter();
 
     return (
-        <section className="min-h-screen bg-gradient-to-br from-[#e8f3eb] to-[#d4e6d2] flex flex-col items-center overflow-x-hidden">
+        <section className="min-h-screen bg-gradient-to-br from-[#f8f8f8] to-[#f8f8f8] flex flex-col items-center overflow-x-hidden">
             {/* Hero */}
             <div className="relative w-full h-[40vh] flex items-center justify-center">
                 <Image
@@ -20,7 +20,7 @@ export default function ContactUs() {
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="absolute top-6 left-6 z-20 bg-white/80 hover:bg-white text-[#2E6F40] px-4 py-2 rounded-lg font-semibold shadow-md transition"
+                    className="absolute top-6 left-6 z-20 bg-white/80 hover:bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow-md transition"
                 >
                     ← Back
                 </button>
@@ -35,29 +35,29 @@ export default function ContactUs() {
             <div className="w-full max-w-6xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12">
                 {/* Form */}
                 <div className="bg-white/90 p-8 rounded-2xl shadow-xl">
-                    <h2 className="text-3xl font-bold text-[#2E6F40] mb-6">Get in Touch</h2>
+                    <h2 className="text-3xl font-bold text-primary mb-6">Get in Touch</h2>
                     <form className="space-y-5">
                         <input
                             type="text"
                             placeholder="Your Name"
-                            className="w-full border border-[#2E6F40]/40 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+                            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
                             required
                         />
                         <input
                             type="email"
                             placeholder="Your Email"
-                            className="w-full border border-[#2E6F40]/40 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+                            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
                             required
                         />
                         <textarea
                             rows={5}
                             placeholder="Your Message"
-                            className="w-full border border-[#2E6F40]/40 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
+                            className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
                             required
                         />
                         <button
                             type="submit"
-                            className="bg-[#2E6F40] text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#265a34] transition"
+                            className="bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-[#265a34] transition"
                         >
                             Send Message
                         </button>
@@ -67,12 +67,12 @@ export default function ContactUs() {
                 {/* Info + Map */}
                 <div className="flex flex-col justify-between">
                     <div className="bg-white/90 p-8 rounded-2xl shadow-xl mb-6">
-                        <h3 className="text-2xl font-bold text-[#2E6F40] mb-4">Our Office</h3>
-                        <p className="text-[#3C4D03] mb-2">GOL Global Logistics HQ</p>
-                        <p className="text-[#3C4D03] mb-2">123 Innovation Drive</p>
-                        <p className="text-[#3C4D03] mb-2">San Francisco, CA 94107</p>
-                        <p className="text-[#3C4D03] mb-2">Email: contact@gol.com</p>
-                        <p className="text-[#3C4D03]">Phone: +1 (800) 555-1234</p>
+                        <h3 className="text-2xl font-bold text-primary mb-4">Our Office</h3>
+                        <p className="text-light-primary mb-2">GOL Global Logistics HQ</p>
+                        <p className="text-light-primary mb-2">Tower 2, 608 E Wing Sea Woods Grand Central</p>
+                        <p className="text-light-primary mb-2">Plot No R 1, Nerul, Thane, Maharashtra, 400706</p>
+                        <p className="text-light-primary mb-2">Email: support@greenocean.com</p>
+                        <p className="text-primary">Phone: +91 9892464661</p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-xl h-64">
                         <iframe

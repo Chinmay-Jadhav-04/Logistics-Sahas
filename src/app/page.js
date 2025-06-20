@@ -32,7 +32,7 @@ export default function Home() {
           <div className="md:col-span-2 space-y-8">
             {/* Card 1 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <Image
+              <img
                 src="https://images.pexels.com/photos/906982/pexels-photo-906982.jpeg"
                 alt="Singapore Logistics Hub"
                 className="w-full h-56 object-cover"
@@ -53,7 +53,7 @@ export default function Home() {
             </div>
             {/* Card 2 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <Image
+              <img
                 src="https://images.pexels.com/photos/221047/pexels-photo-221047.jpeg"
                 alt="Eco-Friendly Packaging"
                 className="w-full h-56 object-cover"
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
             {/* Card 3 */}
             <div className="bg-white rounded-xl shadow-2xl hover:shadow-md transition overflow-hidden">
-              <Image
+              <img
                 src="https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg"
                 alt="24/7 Customer Support"
                 className="w-full h-56 object-cover"

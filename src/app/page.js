@@ -98,7 +98,7 @@ export default function Home() {
                   New Hub Opened in Singapore
                 </h3>
                 <p className="mt-2 text-black">
-                  We've officially launched our new logistics hub in Singapore
+                  We have officially launched our new logistics hub in Singapore
                   to better serve customers in Southeast Asia. This hub
                   increases our regional delivery capacity by 40%.
                 </p>

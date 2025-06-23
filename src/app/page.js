@@ -8,6 +8,8 @@ import GreenCard from "./components/green-card/greencard";
 import FAQ from "./components/faq/faq";
 import Footer from "./components/footer/footer";
 import { useState } from "react";
+import MobileWhiteCard from "./components/white-card/mobilewhitecard";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,8 +70,14 @@ export default function Home() {
         </div>
       </nav>
 
-      
-      <WhiteCard />
+      {
+        useIsMobile() ? (
+          <MobileWhiteCard />
+        ) : (
+          <WhiteCard />
+        )
+      }
+
       <Packages />
       <section className="px-6 sm:px-20 py-16 bg-accent mt-20">
         <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-10 text-center">

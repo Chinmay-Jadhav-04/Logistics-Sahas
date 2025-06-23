@@ -16,41 +16,41 @@ export default function Packages() {
             title: "Mumbai CFS",
             icon: <Ship size={24} />,
             features: ["Container Freight", "Port Handling", "Custom Clearance"],
-            category: "CFS Plus"
+            category: "CFS"
         },
         {
-            title: "Concor DRT CFS",
+            title: "Concor DRT Warehouse",
             icon: <Truck size={24} />,
-            features: ["Same Day Delivery", "Door to Door", "Real-time Tracking"],
-            category: "CFS Transport"
+            features: ["Ample Amount of Space", "Multiple Container Handling", "Modern Tools"],
+            category: "Warehouse"
         },
         {
             title: "SeaBird CFS",
             icon: <Plane size={24} />,
             features: ["Air Freight", "Express Shipping", "Global Coverage"],
-            category: "CFS Package"
+            category: "CFS"
         },
         {
-            title: "CWC CFS",
+            title: "CWC Transport",
             icon: <Package size={24} />,
-            features: ["Local Delivery", "Warehousing", "Distribution"],
-            category: "CFS Plus"
+            features: ["Local Delivery", "Door To Door", "Distribution"],
+            category: "Transport"
         },
         {
-            title: "Ocean Gate CFS",
+            title: "Ocean Gate CFS Transport",
             icon: <Ship size={24} />,
             features: ["European Hub", "Port Services", "Consolidation"],
-            category: "CFS Transport"
+            category: "Transport"
         },
         {
-            title: "Navkar Corportion CFS",
+            title: "Navkar Corportion 3PL",
             icon: <Truck size={24} />,
-            features: ["US Distribution", "Custom Brokerage", "Storage"],
-            category: "CFS Package"
+            features: ["CFS", "Warehouse", "Transport"],
+            category: "3PL"
         }
     ];
 
-    const filterCategories = ['All', 'CFS Plus', 'CFS Transport', 'CFS Package'];
+    const filterCategories = ['All', 'CFS', 'Warehouse', 'Transport', '3PL'];
 
     const filteredPackages = activeFilter === 'All' 
         ? packages 

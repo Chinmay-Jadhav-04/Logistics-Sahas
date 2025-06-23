@@ -136,11 +136,12 @@ const ServicesPage = () => {
             <p className="text-white/90 text-lg md:text-2xl mt-4 max-w-2xl animate-fade-up delay-[200ms]">
               Comprehensive logistics solutions designed to streamline your supply chain operations and drive business growth.
             </p>
+            {/* Back Button */}
             <button
               onClick={() => router.back()}
-              className="mt-6 px-4 py-2 bg-white text-black rounded-lg text-sm hover:bg-gray-200 transition"
+              className="absolute top-6 left-6 z-50 bg-white text-primary px-4 py-2 rounded-full shadow hover:bg-light-primary hover:text-white transition duration-300"
             >
-              ← Go Back
+              ← Back
             </button>
           </div>
         </div>

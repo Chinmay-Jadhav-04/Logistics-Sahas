@@ -20,7 +20,7 @@ export default function ContactUs() {
                 {/* Back Button */}
                 <button
                     onClick={() => router.back()}
-                    className="absolute top-6 left-6 z-20 bg-white/80 hover:bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow-md transition"
+                    className="absolute top-6 left-6 z-50 bg-white text-primary px-4 py-2 rounded-full shadow hover:bg-light-primary hover:text-white transition duration-300"
                 >
                     ← Back
                 </button>

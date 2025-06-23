@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import { ArrowLeft, Package, MapPin, Clock, Truck, CheckCircle } from 'lucide-react'
 import Footer from '../components/footer/footer'
+import { useRouter } from 'next/navigation';
+
 
 const TrackingPage = () => {
   const [containerID, setContainerID] = useState('')
@@ -9,6 +11,7 @@ const TrackingPage = () => {
   const [shipmentData, setShipmentData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+   const router = useRouter();
 
   // Mock shipment data - in real app, this would come from an API
   const mockShipmentData = {
@@ -77,12 +80,12 @@ const TrackingPage = () => {
   return (
     <div className="min-h-screen bg-background">
 
-      <button 
-        onClick={() => window.history.back()}
-        className="flex items-center gap-2 mb-6 text-foreground hover:text-primary transition-colors"
+      {/* Back Button */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-6 left-6 z-50 bg-white text-primary px-4 py-2 rounded-full shadow hover:bg-light-primary hover:text-white transition duration-300"
       >
-        <ArrowLeft className="w-5 h-5" />
-        <span className="font-medium">Back</span>
+        ← Back
       </button>
 
 

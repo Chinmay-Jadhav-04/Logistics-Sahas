@@ -68,16 +68,17 @@ export default function ContactUs() {
                 <div className="flex flex-col justify-between">
                     <div className="bg-white/90 p-8 rounded-2xl shadow-xl mb-6">
                         <h3 className="text-2xl font-bold text-primary mb-4">Our Office</h3>
-                        <p className="text-light-primary mb-2">GOL Global Logistics HQ</p>
-                        <p className="text-light-primary mb-2">Tower 2, 608 E Wing Sea Woods Grand Central</p>
-                        <p className="text-light-primary mb-2">Plot No R 1, Nerul, Thane, Maharashtra, 400706</p>
+                        <p className="text-light-primary mb-2">Green Ocean Logistics</p>
+                        <p className="text-light-primary mb-2">807, Haware Infotech Park,</p>
+                        <p className="text-light-primary mb-2">Sector 30A, Opposite Inorbit Mall, Vashi,</p>
+                        <p className="text-light-primary mb-2">Navi Mumbai, Maharashtra, INDIA-400703</p>
                         <p className="text-light-primary mb-2">Email: support@greenocean.com</p>
                         <p className="text-primary">Phone: +91 9892464661</p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-xl h-64">
                         <iframe
                             title="GOL Office Location"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0869394935223!2d-122.39769568468161!3d37.7785192797584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807cbae9f14b%3A0x903bcde34bb2bca1!2s123%20Innovation%20Dr%2C%20San%20Francisco%2C%20CA%2094107!5e0!3m2!1sen!2sus!4v1685805369394"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4743.152752343176!2d72.99754982609038!3d19.065771382136628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c1000eda57b1%3A0xbc66e4b2bdfbf86e!2sHaware%20infotech%20park!5e1!3m2!1sen!2sin!4v1750672639150!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}

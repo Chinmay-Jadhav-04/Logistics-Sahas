@@ -109,8 +109,9 @@ export default function Footer() {
                                 +91 9892464661
                             </a>
                         </li>
-                        <li>Tower 2, 608 E Wing Sea Woods Grand Central</li>
-                        <li>Plot No R 1, Nerul, Thane, Maharashtra, 400706</li>
+                        <li>807, Haware Infotech Park,</li>
+                        <li>Sector 30A, Opposite Inorbit Mall, Vashi,</li>
+                        <li>Navi Mumbai, Maharashtra, INDIA 400703 </li>
                     </ul>
                 </div>
             </div>
@@ -122,3 +123,4 @@ export default function Footer() {
         </footer>
     );
 }
+

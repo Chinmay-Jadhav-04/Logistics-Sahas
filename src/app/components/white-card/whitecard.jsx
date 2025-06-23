@@ -7,6 +7,7 @@ import {
   Lightbulb, Rocket, Handshake, Navigation
 } from 'lucide-react';
 
+
 export default function WhiteCard() {
   const router = useRouter();
   const [fromLocation, setFromLocation] = useState('');
@@ -535,6 +536,8 @@ const handleSearch = () => {
                   <Rocket className="w-4 h-4" /> Find the perfect solution in seconds
                 </p>
               </div>
+
+              
 
             </div>
           </div>

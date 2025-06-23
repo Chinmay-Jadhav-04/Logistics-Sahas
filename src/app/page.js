@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from 'next/link';
 import { Ship, Plane, Truck, Search, Menu, X } from "lucide-react";
 import Packages from "./components/packages/packages";
 import WhiteCard from "./components/white-card/whitecard";
@@ -7,7 +8,6 @@ import GreenCard from "./components/green-card/greencard";
 import FAQ from "./components/faq/faq";
 import Footer from "./components/footer/footer";
 import { useState } from "react";
-import HeroPage from "./components/hero_page/heropage";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,9 +18,56 @@ export default function Home() {
     { no: "24/7", label: "Customer Support" },
     { no: "150K+", label: "Satisfied Customers" },
   ];
+
   return (
     <div className="bg-white">
-      <HeroPage />
+      {/* Navbar */}
+      <nav className="bg-light-primary flex justify-between items-center px-6 py-3 h-auto relative z-50">
+        <h1 className="text-white text-3xl font-bold">GOL</h1>
+
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X className="text-white" /> : <Menu className="text-white" />}
+          </button>
+        </div>
+
+        <div
+          className={`absolute md:static top-20 md:top-0 right-0 w-3/4 md:w-auto md:flex transition-all duration-300 ease-in-out z-20
+          ${menuOpen ? 'flex flex-col bg-white/90 shadow-lg rounded-l-lg p-6' : 'hidden'}
+          md:flex md:flex-row md:bg-transparent md:shadow-none md:rounded-none md:p-0 space-y-4 md:space-y-0 md:space-x-10`}
+        >
+          {[
+            { text: 'Services', href: '/services' },
+            { text: 'Tracking', href: '/tracking' },
+            { text: 'About Us', href: '/about' },
+            { text: 'Contact Us', href: '/contact' },
+          ].map((item, i) => (
+            <Link
+              key={i}
+              href={item.href}
+              className="cursor-pointer text-[#2E6F40] md:text-white hover:underline text-lg font-semibold"
+            >
+              {item.text}
+            </Link>
+          ))}
+
+          <div className="flex flex-col md:flex-row gap-3 mt-4 md:mt-0">
+            <Link
+              href="/customer/login"
+              className="text-primary bg-white px-4 py-1.5 text-sm rounded-3xl text-center"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/client/login"
+              className="bg-primary text-white px-4 py-1.5 text-sm rounded-3xl text-center"
+            >
+              Be a Merchant
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <WhiteCard />
       <Packages />
       <section className="px-6 sm:px-20 py-16 bg-accent mt-20">
@@ -42,7 +89,7 @@ export default function Home() {
                   New Hub Opened in Singapore
                 </h3>
                 <p className="mt-2 text-black">
-                  We’ve officially launched our new logistics hub in Singapore
+                  We've officially launched our new logistics hub in Singapore
                   to better serve customers in Southeast Asia. This hub
                   increases our regional delivery capacity by 40%.
                 </p>
@@ -139,25 +186,20 @@ export default function Home() {
       </div>
       <GreenCard />
       <div className="bg-accent">
-      <section className="text-center mt-10">
-        <h1 className="text-primary font-bold text-2xl sm:text-3xl">
-          Track Your Package
-        </h1>
-        <p className="text-light-primary mt-5 mr-10 ml-15 sm:text-xl">
-          Enter your tracking number to get real-time updates on your shipment.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center mt-6 space-y-4 sm:space-y-0 sm:space-x-4 items-center">
-          <input
-            type="text"
-            placeholder="Enter tracking number..."
-            className="w-80 sm:w-96 px-3 py-1 sm:px-5 sm:py-2 rounded-md border font-sans bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2E6F40]"
-          />
-          <button className="bg-primary text-white px-10 py-2 rounded-md flex items-center space-x-2 hover:bg-blue-500 transition">
-            <Search size={18} />
-            <span>Track</span>
-          </button>
-        </div>
-      </section>
+        <section className="text-center py-10">
+          <h1 className="text-primary font-bold text-2xl sm:text-3xl">
+            Track Your Package
+          </h1>
+          <div className="flex justify-center mt-6">
+            <Link
+              href="/tracking"
+              className="bg-primary text-white px-8 py-3 rounded-md flex items-center space-x-2 hover:bg-blue-500 transition font-medium"
+            >
+              <Search size={18} />
+              <span>Click Here to Track Your Package</span>
+            </Link>
+          </div>
+        </section>
       </div>
       <FAQ />
       <Footer />

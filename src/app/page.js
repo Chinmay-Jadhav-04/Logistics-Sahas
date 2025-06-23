@@ -21,9 +21,9 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      {/* Navbar */}
-      <nav className="bg-light-primary flex justify-between items-center px-6 py-3 h-auto relative z-50">
-        <h1 className="text-white text-3xl font-bold">GOL</h1>
+      {/* Glassmorphism Navbar */}
+      <nav className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md border-b border-white/20 flex justify-between items-center px-6 py-3 h-auto">
+        <h1 className="text-white text-3xl font-bold drop-shadow-lg">GOL</h1>
 
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)}>
@@ -33,7 +33,7 @@ export default function Home() {
 
         <div
           className={`absolute md:static top-20 md:top-0 right-0 w-3/4 md:w-auto md:flex transition-all duration-300 ease-in-out z-20
-          ${menuOpen ? 'flex flex-col bg-white/90 shadow-lg rounded-l-lg p-6' : 'hidden'}
+          ${menuOpen ? 'flex flex-col bg-white/90 backdrop-blur-md shadow-lg rounded-l-lg p-6' : 'hidden'}
           md:flex md:flex-row md:bg-transparent md:shadow-none md:rounded-none md:p-0 space-y-4 md:space-y-0 md:space-x-10`}
         >
           {[
@@ -45,7 +45,7 @@ export default function Home() {
             <Link
               key={i}
               href={item.href}
-              className="cursor-pointer text-[#2E6F40] md:text-white hover:underline text-lg font-semibold"
+              className="cursor-pointer text-[#2E6F40] md:text-white md:drop-shadow-lg hover:underline text-lg font-semibold transition-all duration-200 hover:text-blue-200"
             >
               {item.text}
             </Link>
@@ -54,13 +54,13 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-3 mt-4 md:mt-0">
             <Link
               href="/customer/login"
-              className="text-primary bg-white px-4 py-1.5 text-sm rounded-3xl text-center"
+              className="text-primary bg-white/90 backdrop-blur-sm px-4 py-1.5 text-sm rounded-3xl text-center hover:bg-white transition-all duration-200"
             >
               Sign In
             </Link>
             <Link
               href="/client/login"
-              className="bg-primary text-white px-4 py-1.5 text-sm rounded-3xl text-center"
+              className="bg-primary/90 backdrop-blur-sm text-white px-4 py-1.5 text-sm rounded-3xl text-center hover:bg-primary transition-all duration-200"
             >
               Be a Merchant
             </Link>
@@ -68,6 +68,7 @@ export default function Home() {
         </div>
       </nav>
 
+      
       <WhiteCard />
       <Packages />
       <section className="px-6 sm:px-20 py-16 bg-accent mt-20">

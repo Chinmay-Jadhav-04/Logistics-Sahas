@@ -436,8 +436,8 @@ const MobileWhiteCard = () => {
 
   return (
     <div className="sm:hidden min-h-screen bg-gradient-to-br from-blue-50 to-white p-4">
-      {/* Header */}
-      <div className="text-center mb-6 pt-4">
+      {/* Header with proper spacing from navbar */}
+      <div className="text-center mb-6 pt-20"> {/* Increased padding-top from pt-4 to pt-20 */}
         <h1 className="text-2xl font-bold text-gray-800 mb-2">
           🔍 What Are You Looking For?
         </h1>

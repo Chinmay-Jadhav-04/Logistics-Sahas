@@ -39,7 +39,6 @@ export default function WhiteCard() {
 
   const handleServiceClick = (serviceId) => {
     setActiveService(serviceId);
-    // Reset form fields when switching services
     setFromLocation('');
     setToLocation('');
     setVehicleType('');
@@ -54,7 +53,7 @@ const handleSearch = () => {
     return;
   }
 
-  // Validation based on service type
+ 
   if (activeService === 'transport') {
     if (!fromLocation || !toLocation || !vehicleType) {
       alert('Please fill in all required fields for Transport service');
@@ -77,7 +76,7 @@ const handleSearch = () => {
     service: activeService
   });
 
-  // Add additional parameters based on service type
+  
   if (activeService === 'transport') {
     searchParams.append('toLocation', toLocation);
     searchParams.append('vehicleType', vehicleType);
@@ -93,7 +92,7 @@ const handleSearch = () => {
     searchParams.append('freeDays', freeDaysRange.toString());
   }
 
-  // All services route to customer/home as they are tabs/buttons within the same page
+
   router.push(`/customer/home?${searchParams.toString()}`);
 };
 
@@ -110,7 +109,7 @@ const handleSearch = () => {
     if (activeService === 'transport') {
       return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-          {/* From Location */}
+         
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <MapPin className="text-primary" /> From Location
@@ -129,7 +128,7 @@ const handleSearch = () => {
             </div>
           </div>
 
-          {/* To Location */}
+          
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <Navigation className="text-green-500" /> To Location
@@ -148,7 +147,7 @@ const handleSearch = () => {
             </div>
           </div>
 
-          {/* Vehicle Type */}
+     
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <Truck className="text-purple-500" /> Vehicle Type
@@ -165,7 +164,7 @@ const handleSearch = () => {
             </select>
           </div>
 
-          {/* Number of Vehicles */}
+        
           <div className="space-y-3 md:col-span-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <Package className="text-orange-500" /> Number of Vehicles
@@ -198,7 +197,7 @@ const handleSearch = () => {
     } else if (activeService === '3pl') {
       return (
         <div className="space-y-6">
-          {/* First Row: From and To Location */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -237,7 +236,7 @@ const handleSearch = () => {
             </div>
           </div>
 
-          {/* Second Row: Vehicle Type and Number of Vehicles */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -284,7 +283,7 @@ const handleSearch = () => {
             </div>
           </div>
 
-          {/* Third Row: Tariff and Storage Days */}
+       
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <label className="text-base font-semibold text-gray-700 mb-2 flex items-center gap-2">
@@ -345,10 +344,10 @@ const handleSearch = () => {
         </div>
       );
     } else {
-      // Default form for CFS and Warehouse (unchanged)
+      
       return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-          {/* Location Input */}
+    
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <MapPin className="text-blue-500" /> Location
@@ -370,7 +369,7 @@ const handleSearch = () => {
             </p>
           </div>
 
-          {/* Tariff Rate */}
+      
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <IndianRupee className="text-green-500" /> Max Tariff Rate
@@ -402,7 +401,7 @@ const handleSearch = () => {
             </p>
           </div>
 
-          {/* Free Storage Days */}
+        
           <div className="space-y-3">
             <label className="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
               <Clock className="text-purple-500" /> Free Storage Days
@@ -441,14 +440,14 @@ const handleSearch = () => {
   return (
     <div>
       <section className="hidden sm:flex justify-center items-center h-screen w-full relative">
-        {/* Background Image */}
+        
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('/whitecardbg.png')`,
           }}
         />
-         {/* Van Image - Positioned at bottom-right */}
+         
           <div className="absolute bottom-4 right-4 z-20">
             <img 
               src="/Truck.png" 
@@ -460,10 +459,10 @@ const handleSearch = () => {
         <div className="white-card relative min-h-[90dvh] w-[90%] bg-white/95 backdrop-blur-sm border rounded-lg shadow-2xl z-10">
           
 
-          {/* Progress Line Background */}
+   
           <div className="absolute top-24 left-1/2 transform -translate-x-1/2 w-[58%] h-1 bg-gray-300 rounded-full z-0" />
           
-          {/* Animated Progress Line */}
+          
           <div 
             className="absolute top-24 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full z-0 transition-all duration-500 ease-in-out"
             style={{ 
@@ -472,7 +471,7 @@ const handleSearch = () => {
             }}
           />
 
-          {/* Service Icons */}
+          
           <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-[60%] flex justify-between z-10">
             {services.map((service, index) => (
               <div 
@@ -499,13 +498,13 @@ const handleSearch = () => {
             ))}
           </div>
 
-          {/* Main Content */}
+         
           <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-[85%] max-w-5xl">
             <div className={`bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-gray-100 ${
               activeService === '3pl' ? 'p-8' : 'p-12'
             }`}>
 
-              {/* Header */}
+             
               <div className={`text-center ${activeService === '3pl' ? 'mb-6' : 'mb-10'}`}>
                 <h2 className="text-3xl font-bold text-gray-800 mb-2">
                   🔍 What Are You Looking For?
@@ -517,7 +516,7 @@ const handleSearch = () => {
 
               {renderFormFields()}
 
-              {/* Search Button */}
+              
               <div className="text-center">
                 <button
                   onClick={handleSearch}
